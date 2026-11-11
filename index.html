@@ -1,0 +1,3518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footprint Check — Free Digital Footprint, Username &amp; Email Search</title>
+  <meta name="description" content="Check your digital footprint free: search a username across 30+ sites, check an email, test a password against known breaches and remove yourself from data brokers. No sign-up — everything runs in your browser.">
+  <link rel="canonical" href="https://youtubedhan11-cpu.github.io/footprint-check/">
+
+  <!-- Open Graph / Twitter Meta Tags -->
+  <meta property="og:title" content="Footprint Check — Free Digital Footprint, Username &amp; Email Search">
+  <meta property="og:description" content="Check your digital footprint free: search a username across 30+ sites, check an email, test a password against known breaches and remove yourself from data brokers. No sign-up — everything runs in your browser.">
+  <meta property="og:url" content="https://youtubedhan11-cpu.github.io/footprint-check/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Footprint Check — Free Digital Footprint, Username &amp; Email Search">
+  <meta name="twitter:description" content="Check your digital footprint free: search a username across 30+ sites, check an email, test a password against known breaches and remove yourself from data brokers. No sign-up — everything runs in your browser.">
+
+  <!-- AdSense Plumbing Exactly as Specified in ORDER.md -->
+  <script>window.SITE_ADS={publisherId:'ca-pub-4405800574856346',enabled:true};</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4405800574856346" crossorigin="anonymous"></script>
+
+  <!-- FAQ JSON-LD Schema Matching On-Page FAQ Exactly -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this legal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. Performing self-audits of your own digital footprint using publicly accessible web profiles and standard public APIs is completely lawful. FootPrint Check does not bypass authentication, hack private systems, or access unauthorized databases. All tools either construct direct links to public profile URLs or query standard, publicly available endpoints."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you store my searches?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Nothing you type is sent to or stored by us. There are no backend database servers recording your queries, no user accounts, and no session tracking. Every lookup and calculation executes directly inside your browser. External requests (like Gravatar, GitHub, GitLab, HackerNews, and Have I Been Pwned) originate directly from your browser to those services."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why can't you show who owns a phone number?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Carrier assignment and personal subscriber ownership records are stored in closed, paid telecommunication databases (CNAM and subscriber registries). No legitimate free website can truthfully provide live subscriber identities without paying commercial telecom data providers. Sites claiming to offer 'free full background and phone owner checks' are almost always affiliate funnels that lure visitors before demanding paid subscriptions. FootPrint Check provides honest, transparent parsing: international format, country origin, and structural validity without deceptive claims."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this like IntelBase?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. We do not host, sell, or mirror proprietary stolen breach archives or private personal dossiers. We build client-side privacy auditing tools that allow individuals to discover where their public handles might exist, verify whether passwords have appeared in known public breach counts via k-anonymity, and exercise their legal opt-out rights with data brokers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do paid sites get their data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paid people-search sites and data brokers compile massive cross-referenced profiles by purchasing public government records (real estate deeds, marriage licenses, voter registration rolls, court records, business filings), harvesting commercial marketing databases, and cross-matching scraped contact info from social media."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How often should I check?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We recommend auditing your digital footprint every 3 to 6 months. Data brokers frequently recreate listings from newly acquired public records even after you have opted out. Furthermore, whenever you hear news of a major service breach, you should immediately check your passwords using our breach safety tool and update affected accounts."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* =========================================================================
+       PALETTE ENFORCEMENT:
+       Background: near-black ink #0c0e0a
+       Panel: #14170f, #181d13, #1e2417
+       Border: #262e1c, #394528
+       Text: cream #f0eee2
+       Accent: lime #a8f04a
+       Secondary: amber #e8a33d
+       Warm rust: #d9532f (for alerts & breaches)
+       All links, visited states, outlines, and selections styled inside palette.
+       System font stack only. Clean, serious, privacy-tool aesthetic.
+       ========================================================================= */
+    :root {
+      --bg: #0c0e0a;
+      --panel: #14170f;
+      --panel-card: #181d13;
+      --panel-elevated: #1e2417;
+      --border: #262e1c;
+      --border-bright: #394528;
+      --text: #f0eee2;
+      --text-muted: #9fa293;
+      --text-faint: #636657;
+      --lime: #a8f04a;
+      --lime-hover: #bcf56a;
+      --lime-dim: rgba(168, 240, 74, 0.12);
+      --lime-glow: rgba(168, 240, 74, 0.22);
+      --amber: #e8a33d;
+      --amber-hover: #f1b356;
+      --amber-dim: rgba(232, 163, 61, 0.12);
+      --rust: #d9532f;
+      --rust-dim: rgba(217, 83, 47, 0.15);
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --radius: 8px;
+      --radius-sm: 5px;
+      --radius-lg: 12px;
+      --transition: all 0.18s ease-in-out;
+      --max-w: 1140px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.55;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Selection - strictly inside palette */
+    ::selection {
+      background-color: var(--lime);
+      color: var(--bg);
+    }
+    ::-moz-selection {
+      background-color: var(--lime);
+      color: var(--bg);
+    }
+
+    /* Links - strictly inside palette */
+    a, a:visited {
+      color: var(--lime);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    a:hover, a:focus {
+      color: var(--lime-hover);
+      text-decoration: underline;
+    }
+
+    /* Focus states - custom palette outline */
+    :focus {
+      outline: none;
+    }
+    :focus-visible {
+      outline: 2px solid var(--lime);
+      outline-offset: 2px;
+    }
+
+    /* Form controls - strictly inside palette */
+    input, select, textarea, button {
+      font-family: inherit;
+      color: var(--text);
+      accent-color: var(--lime);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-bright);
+    }
+
+    /* Layout & Container */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Site Header */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(12, 14, 10, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .brand:hover {
+      text-decoration: none;
+      color: var(--lime);
+    }
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--lime-dim);
+      border: 1px solid var(--lime);
+      border-radius: 6px;
+      color: var(--lime);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 3px;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom-color: var(--lime);
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--lime);
+      white-space: nowrap;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--lime);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px var(--lime);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 0 42px;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at 50% 0%, rgba(168, 240, 74, 0.05) 0%, transparent 60%);
+    }
+
+    .hero-badge-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--border-bright);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--amber);
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4.4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    .hero-title .accent {
+      color: var(--lime);
+    }
+
+    .hero-tagline {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin-bottom: 16px;
+    }
+
+    .hero-guarantee {
+      display: inline-block;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--panel);
+      border-left: 3px solid var(--lime);
+      padding: 10px 16px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .hero-tools-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .tool-jump-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .tool-jump-btn:hover {
+      background: var(--panel-elevated);
+      border-color: var(--lime);
+      color: var(--lime);
+      text-decoration: none;
+    }
+
+    /* Tool Sections Layout */
+    .tool-section {
+      padding: 55px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head {
+      margin-bottom: 24px;
+    }
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--lime);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 760px;
+    }
+
+    /* Panels & Boxes */
+    .panel-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+    }
+
+    /* Form Controls */
+    .input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .input-field {
+      flex: 1 1 240px;
+      background: #090a07;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .input-field:focus {
+      border-color: var(--lime);
+      outline: 2px solid var(--lime);
+      outline-offset: 1px;
+    }
+    .input-field::placeholder {
+      color: var(--text-faint);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--lime);
+      color: #0c0e0a;
+      border: none;
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--lime-hover);
+      color: #0c0e0a;
+      text-decoration: none;
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .btn-secondary {
+      background: var(--panel-elevated);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--panel-card);
+      border-color: var(--border-bright);
+      color: var(--lime);
+    }
+    .btn-amber {
+      background: var(--amber);
+      color: #0c0e0a;
+    }
+    .btn-amber:hover {
+      background: var(--amber-hover);
+      color: #0c0e0a;
+    }
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Honest Notices */
+    .honest-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: 12px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .honest-notice strong {
+      color: var(--text);
+    }
+
+    /* Stats & Filters */
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 18px 0;
+      padding: 12px 16px;
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+    .stat-number {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-chip:hover {
+      color: var(--text);
+      border-color: var(--border-bright);
+    }
+    .filter-chip.active {
+      background: var(--lime-dim);
+      border-color: var(--lime);
+      color: var(--lime);
+      font-weight: 600;
+    }
+    .filter-search {
+      background: #090a07;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      color: var(--text);
+      min-width: 190px;
+    }
+    .filter-search:focus {
+      border-color: var(--lime);
+      outline: 1px solid var(--lime);
+    }
+
+    /* Tables */
+    .table-responsive {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel-card);
+    }
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    .custom-table th {
+      background: var(--panel);
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .custom-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+    .custom-table tr:last-child td {
+      border-bottom: none;
+    }
+    .custom-table tr:hover td {
+      background-color: var(--panel-elevated);
+    }
+
+    .platform-name {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .platform-category {
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      display: block;
+    }
+    .profile-url-cell {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      max-width: 380px;
+    }
+
+    /* Status Chips */
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-found {
+      background: var(--lime-dim);
+      border: 1px solid var(--lime);
+      color: var(--lime);
+    }
+    .status-not-found {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .status-manual {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber);
+      color: var(--amber);
+    }
+    .status-error {
+      background: var(--rust-dim);
+      border: 1px solid var(--rust);
+      color: var(--rust);
+    }
+    .status-loading {
+      background: var(--panel-elevated);
+      border: 1px solid var(--border-bright);
+      color: var(--text-muted);
+    }
+
+    /* Password & Entropy */
+    .password-wrapper {
+      position: relative;
+      flex: 1 1 280px;
+    }
+    .password-wrapper .input-field {
+      width: 100%;
+      padding-right: 56px;
+    }
+    .pw-toggle-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 6px;
+      font-family: var(--font-mono);
+    }
+    .pw-toggle-btn:hover {
+      color: var(--lime);
+    }
+
+    .meter-wrap {
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+    .meter-bar-bg {
+      height: 6px;
+      background: #090a07;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .meter-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--rust);
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+    .meter-labels {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .pwned-alert {
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      margin-top: 14px;
+      font-size: 0.92rem;
+      border: 1px solid var(--border);
+      display: none;
+    }
+    .pwned-alert.danger {
+      display: block;
+      background: var(--rust-dim);
+      border-color: var(--rust);
+      color: var(--text);
+    }
+    .pwned-alert.safe {
+      display: block;
+      background: var(--lime-dim);
+      border-color: var(--lime);
+      color: var(--text);
+    }
+
+    /* Passphrase Box */
+    .passphrase-box {
+      margin-top: 20px;
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .passphrase-display {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      color: var(--lime);
+      background: #090a07;
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin: 10px 0;
+      word-break: break-all;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Google / Dorks Tool */
+    .dork-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .dork-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .dork-query {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--lime);
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+    .dork-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Digital Footprint Score Section */
+    .score-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .score-display {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .score-circle {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      border: 4px solid var(--lime);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      background: #090a07;
+    }
+    .score-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--lime);
+      line-height: 1;
+    }
+    .score-unit {
+      font-size: 0.65rem;
+      color: var(--text-faint);
+    }
+    .score-band {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .score-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .audit-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .audit-row {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .audit-q {
+      font-size: 0.9rem;
+      color: var(--text);
+      flex: 1 1 300px;
+    }
+    .audit-toggles {
+      display: inline-flex;
+      gap: 6px;
+    }
+    .toggle-opt {
+      background: var(--panel-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .toggle-opt.selected-yes {
+      background: var(--rust-dim);
+      border-color: var(--rust);
+      color: var(--rust);
+    }
+    .toggle-opt.selected-no {
+      background: var(--lime-dim);
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    .action-plan-box {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--lime);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px;
+    }
+    .action-plan-box h3 {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .action-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .action-item {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .action-item::before {
+      content: "→";
+      color: var(--lime);
+      font-weight: bold;
+    }
+
+    /* Privacy Quick Links Cards */
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .privacy-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .privacy-card h3 {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .privacy-tip {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Browser Fingerprint Demo Tool */
+    .fp-hash-box {
+      background: #090a07;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--lime);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Email Alias Tool */
+    .alias-results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .alias-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .alias-text {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--lime);
+      word-break: break-all;
+    }
+
+    /* Broker Tracker Progress */
+    .broker-tracker-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #090a07;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--lime);
+      transition: width 0.3s ease;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .info-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+    .info-card-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .info-card-val {
+      font-size: 0.95rem;
+      font-family: var(--font-mono);
+      color: var(--lime);
+      word-break: break-all;
+    }
+
+    /* Ads Plumbing Slots (ORDER.md: Two empty containers with class "ad-slot") */
+    .ad-slot {
+      margin: 40px auto;
+      max-width: var(--max-w);
+      min-height: 90px;
+      background: rgba(20, 23, 15, 0.4);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    .ad-slot::after {
+      content: "SPONSORED ADVERTISEMENT";
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      letter-spacing: 0.1em;
+    }
+
+    /* Guides Section */
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 22px;
+      margin-top: 24px;
+    }
+    .guide-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .guide-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .guide-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .guide-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .faq-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .faq-question:hover {
+      color: var(--lime);
+    }
+    .faq-icon {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--lime);
+      transition: transform 0.2s ease;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      border-top: 1px solid rgba(38, 46, 28, 0.4);
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* Trust Sections */
+    .trust-section {
+      padding: 55px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-content {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+    }
+    .trust-content h3 {
+      font-size: 1.15rem;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+    .trust-content h3:first-child {
+      margin-top: 0;
+    }
+    .trust-content p {
+      margin-bottom: 14px;
+    }
+    .trust-content p:last-child {
+      margin-bottom: 0;
+    }
+    .trust-content ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+    }
+    .trust-content li {
+      margin-bottom: 6px;
+    }
+
+    /* Footer */
+    .site-footer {
+      padding: 40px 0 50px;
+      background: #080906;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      list-style: none;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+    }
+    .footer-links a:hover {
+      color: var(--lime);
+    }
+
+    /* Print Styles (ORDER2.md: Print checklist) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .site-header, .hero, .tool-section:not(#brokers), .ad-slot, .guides-grid, .faq-list, .trust-section, .site-footer, .filter-bar, .btn {
+        display: none !important;
+      }
+      #brokers {
+        display: block !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+      .panel-box {
+        background: #ffffff !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+      .custom-table {
+        color: #000000 !important;
+        font-size: 10pt !important;
+      }
+      .custom-table th, .custom-table td {
+        border-bottom: 1px solid #cccccc !important;
+        color: #000000 !important;
+        padding: 6px 8px !important;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      .mobile-nav-active .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: var(--panel);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 20px;
+        gap: 12px;
+      }
+      .input-group {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="FootPrint Check Home">
+        <span class="brand-logo">FP</span>
+        <span>FootPrint Check</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#username">Username</a></li>
+          <li><a href="#email">Email</a></li>
+          <li><a href="#email-breach">Breaches</a></li>
+          <li><a href="#google-dorks">Google Dorks</a></li>
+          <li><a href="#password">Password</a></li>
+          <li><a href="#phone">Phone</a></li>
+          <li><a href="#browser">Device</a></li>
+          <li><a href="#score">Score</a></li>
+          <li><a href="#privacy-links">Settings</a></li>
+          <li><a href="#brokers">Brokers</a></li>
+          <li><a href="#guides">Guides</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="header-badge" title="All operations run client-side in your browser">
+          <span class="status-dot"></span> 100% Client-Side
+        </span>
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge-wrap">
+          <span>🛡️ Pure In-Browser OSINT Toolkit</span>
+          <span>•</span>
+          <span>Zero Server Storage</span>
+        </div>
+        <h1 class="hero-title">See What the Internet <span class="accent">Knows About You</span></h1>
+        <p class="hero-tagline">See what the internet knows about you — free, no sign-up, everything runs in your browser.</p>
+        <div class="hero-guarantee">
+          No sign-up. No fees. Your searches never leave your device.
+        </div>
+        <div class="hero-tools-nav">
+          <a href="#username" class="tool-jump-btn">⚡ Username Footprint (72)</a>
+          <a href="#email" class="tool-jump-btn">✉️ Email &amp; Gravatar</a>
+          <a href="#email-breach" class="tool-jump-btn">🚨 Email Breach Check</a>
+          <a href="#google-dorks" class="tool-jump-btn">🔍 Find Yourself on Google</a>
+          <a href="#password" class="tool-jump-btn">🔑 Password Safety</a>
+          <a href="#phone" class="tool-jump-btn">📱 Phone Country Check</a>
+          <a href="#browser" class="tool-jump-btn">🌐 What Websites See</a>
+          <a href="#fingerprint" class="tool-jump-btn">🧬 Canvas Fingerprint</a>
+          <a href="#alias" class="tool-jump-btn">🏷️ Gmail Alias Generator</a>
+          <a href="#score" class="tool-jump-btn">📊 Footprint Score</a>
+          <a href="#privacy-links" class="tool-jump-btn">🔒 Privacy Settings Links</a>
+          <a href="#brokers" class="tool-jump-btn">📋 Broker Directory &amp; Tracker</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 1: USERNAME FOOTPRINT -->
+    <section class="tool-section" id="username">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 01 / Reconnaissance</span>
+          <h2 class="section-title">Username Footprint Search</h2>
+          <p class="section-desc">
+            Check where a handle exists across 72 high-traffic platforms. We run real live existence checks via free CORS-open APIs for GitHub, GitLab, HackerNews, Bluesky, and Keybase, and generate direct public profile URLs for 67 additional platforms.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="usernameForm" onsubmit="event.preventDefault(); runUsernameScan();">
+            <div class="input-group">
+              <input type="text" id="usernameInput" class="input-field" placeholder="Enter username (e.g. torvalds, satoshi)" autocomplete="off" spellcheck="false" required>
+              <button type="submit" id="usernameBtn" class="btn">
+                <span>Scan 72 Platforms</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="honest-notice">
+            <span>ℹ️</span>
+            <div>
+              <strong>Honest verification notice:</strong> We never claim a link-only row was verified. GitHub, GitLab, HackerNews, Bluesky, and Keybase are checked live against public APIs. The remaining platforms are direct public URL patterns that you can inspect manually with one click.
+            </div>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="stats-bar" id="usernameStatsBar" style="display: none;">
+            <div class="stat-item">Total Platforms: <span class="stat-number" id="statTotal">72</span></div>
+            <div class="stat-item">API Verified Found: <span class="stat-number" id="statFound" style="color: var(--lime);">0</span></div>
+            <div class="stat-item">API Verified Not Found: <span class="stat-number" id="statNotFound">0</span></div>
+            <div class="stat-item">Manual Links: <span class="stat-number" id="statManual">67</span></div>
+          </div>
+
+          <!-- Filter Bar -->
+          <div class="filter-bar" id="usernameFilterBar" style="display: none;">
+            <div class="filter-tabs">
+              <button class="filter-chip active" onclick="filterUsernameTable('all', this)">All Platforms (72)</button>
+              <button class="filter-chip" onclick="filterUsernameTable('found', this)">Found via API</button>
+              <button class="filter-chip" onclick="filterUsernameTable('manual', this)">Manual Check</button>
+            </div>
+            <input type="text" id="platformFilterInput" class="filter-search" placeholder="Filter platform name..." oninput="searchUsernameTable(this.value)">
+          </div>
+
+          <!-- Results Table -->
+          <div class="table-responsive" id="usernameTableWrap" style="display: none;">
+            <table class="custom-table" id="usernameTable">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Platform</th>
+                  <th style="width: 45%;">Generated URL</th>
+                  <th style="width: 15%;">Status</th>
+                  <th style="width: 15%; text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="usernameTableBody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 2: EMAIL FOOTPRINT & GRAVATAR -->
+    <section class="tool-section" id="email">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 02 / Identity Footprint</span>
+          <h2 class="section-title">Email Footprint &amp; Gravatar Lookup</h2>
+          <p class="section-desc">
+            Enter an email address to query the public Gravatar profile API and run deep web search dorks. MD5 hashing runs entirely inside your browser.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="emailForm" onsubmit="event.preventDefault(); runEmailScan();">
+            <div class="input-group">
+              <input type="email" id="emailInput" class="input-field" placeholder="name@example.com" autocomplete="off" spellcheck="false" required>
+              <button type="submit" id="emailBtn" class="btn">
+                <span>Check Email Footprint</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="honest-notice">
+            <span>🔒</span>
+            <div>
+              <strong>Privacy Guarantee:</strong> Your raw email is never sent to our servers. Your browser computes the MD5 digest locally to query Gravatar. No email addresses are recorded.
+            </div>
+          </div>
+
+          <!-- Gravatar & Dork Results -->
+          <div class="email-results" id="emailResults" style="display: none; margin-top: 20px;">
+            <div class="panel-box" id="gravatarCard" style="background: var(--panel-card); display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+              <img id="gravatarImg" style="width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--lime); background: #090a07; object-fit: cover;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' fill='%23636657'%3E%3Crect width='100%25' height='100%25' fill='%23181d13'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' fill='%239fa293' font-size='24' font-family='sans-serif'%3E?%3C/text%3E%3C/svg%3E" alt="Avatar">
+              <div style="flex: 1 1 240px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span id="gravatarStatusBadge" class="status-chip status-not-found">Checking...</span>
+                  <span id="gravatarHashText" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-faint);"></span>
+                </div>
+                <h3 id="gravatarName" style="font-size: 1.15rem; color: var(--text); margin-bottom: 4px;">Gravatar Profile</h3>
+                <p id="gravatarDesc" style="font-size: 0.85rem; color: var(--text-muted);"></p>
+                <div id="gravatarLinkWrap" style="margin-top: 8px;"></div>
+              </div>
+            </div>
+
+            <!-- Exact Quote Search Engine Dorks -->
+            <div class="panel-box" style="background: var(--panel-card); border-color: var(--border); margin-top: 16px;">
+              <h3 style="font-size: 1.05rem; margin-bottom: 8px; color: var(--text);">Direct Search Engine Dorks (Exact Match)</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                Find mentions of this exact email across pastebins, forum registrations, leaked dumps, and public directories using exact phrase matching:
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <a id="dorkGoogle" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  🔍 Search Google in Quotes
+                </a>
+                <a id="dorkBing" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  🔍 Search Bing in Quotes
+                </a>
+                <a id="dorkDdg" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  🔍 Search DuckDuckGo in Quotes
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 3: EMAIL BREACH CHECK (XposedOrNot + Fallback) -->
+    <section class="tool-section" id="email-breach">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 03 / Breach Intelligence</span>
+          <h2 class="section-title">Email Breach Exposure Check</h2>
+          <p class="section-desc">
+            Check your email address against known public data breaches using the free, open XposedOrNot API. If your email was compromised, view the exact incidents and security recommendations.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="emailBreachForm" onsubmit="event.preventDefault(); runEmailBreachCheck();">
+            <div class="input-group">
+              <input type="email" id="breachEmailInput" class="input-field" placeholder="Enter email to check breaches (e.g. name@example.com)" autocomplete="off" spellcheck="false" required>
+              <button type="submit" id="breachEmailBtn" class="btn btn-amber">
+                <span>Check Breach History</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="honest-notice">
+            <span>🛡️</span>
+            <div>
+              <strong>Truth in breach monitoring:</strong> We query XposedOrNot's public API directly from your browser. We never fabricate results. If the API is unreachable, we direct you to free official monitors.
+            </div>
+          </div>
+
+          <!-- Breach Results Box -->
+          <div id="emailBreachResults" style="display: none; margin-top: 20px;">
+            <div id="breachStatusAlert" class="pwned-alert"></div>
+            <div id="breachListContainer" style="margin-top: 14px;"></div>
+            <div id="breachFallbackPanel" style="display: none; margin-top: 16px;" class="panel-box">
+              <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 8px;">Free Official Breach Monitors</h3>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+                Direct automated lookup could not be completed from your current network. You can verify this exact email safely and free on these two leading independent services:
+              </p>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a id="btnHibpEmail" href="https://haveibeenpwned.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  Check on Have I Been Pwned ↗
+                </a>
+                <a id="btnMozillaMonitor" href="https://monitor.mozilla.org/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  Check on Firefox Monitor ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 4: FIND YOURSELF ON GOOGLE (DORKS GENERATOR) -->
+    <section class="tool-section" id="google-dorks">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 04 / Google Footprint Search</span>
+          <h2 class="section-title">Find Yourself on Google &amp; Bing</h2>
+          <p class="section-desc">
+            Discover what Google and Bing have indexed about you. Generate targeted Google search dorks across exposed PDFs, public Facebook accounts, data broker listings, and exact quotes.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="dorkForm" onsubmit="event.preventDefault(); generateGoogleDorks();">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px;">
+              <input type="text" id="dorkName" class="input-field" placeholder="Full name (e.g. John Doe)" required>
+              <input type="text" id="dorkCity" class="input-field" placeholder="City or State (optional)">
+              <input type="text" id="dorkPhone" class="input-field" placeholder="Phone number (optional)">
+              <input type="email" id="dorkEmail" class="input-field" placeholder="Email address (optional)">
+            </div>
+            <button type="submit" class="btn">
+              <span>Generate Search Dorks</span>
+            </button>
+          </form>
+
+          <div class="honest-notice">
+            <span>ℹ️</span>
+            <div>
+              <strong>Actionable Removal:</strong> Anything you find about yourself, you can ask that site to remove — see the opt-out directory below.
+            </div>
+          </div>
+
+          <div id="dorksOutput" style="display: none; margin-top: 20px;">
+            <h3 style="font-size: 1.1rem; color: var(--text); margin-bottom: 12px;">Ready-Made Search Engine Queries</h3>
+            <div class="dork-grid" id="dorkCardsContainer">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 5: PASSWORD SAFETY & BREACH EXPOSURE -->
+    <section class="tool-section" id="password">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 05 / Breach Defense</span>
+          <h2 class="section-title">Password Safety &amp; Breach Exposure</h2>
+          <p class="section-desc">
+            Test a password against hundreds of millions of exposed passwords using Have I Been Pwned's official Pwned-Passwords API. Uses mathematical k-Anonymity — neither your password nor its complete hash ever leaves your browser.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="pwForm" onsubmit="event.preventDefault(); runPasswordCheck();">
+            <div class="input-group">
+              <div class="password-wrapper">
+                <input type="password" id="pwInput" class="input-field" placeholder="Enter password to evaluate" autocomplete="new-password" oninput="updatePasswordStrength(this.value)" required>
+                <button type="button" class="pw-toggle-btn" id="pwToggleBtn" onclick="togglePasswordVisibility()">SHOW</button>
+              </div>
+              <button type="submit" id="pwCheckBtn" class="btn">
+                <span>Check Known Breaches</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Strength Meter & Crack Time -->
+          <div class="meter-wrap">
+            <div class="meter-bar-bg">
+              <div class="meter-bar-fill" id="pwMeterFill"></div>
+            </div>
+            <div class="meter-labels">
+              <span>Strength: <strong id="pwStrengthLabel" style="color: var(--text);">Not tested</strong></span>
+              <span id="pwEntropyLabel">0 bits entropy</span>
+              <span>Estimated Crack Time: <strong id="pwCrackTimeLabel" style="color: var(--lime);">—</strong></span>
+            </div>
+          </div>
+
+          <div class="pwned-alert" id="pwnedAlertBox"></div>
+
+          <!-- Strong Passphrase Generator (ORDER2.md Item 4b) -->
+          <div class="passphrase-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 2px;">Strong Passphrase Generator</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Generates 4 random dictionary words joined with digits &amp; symbols. High entropy, memorable, uncrackable.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="generateNewPassphrase()">
+                🎲 Generate New Passphrase
+              </button>
+            </div>
+            <div class="passphrase-display">
+              <span id="generatedPassphraseText">click generate to create</span>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" id="copyPassphraseBtn" class="btn btn-secondary btn-sm" onclick="copyPassphrase()">Copy</button>
+                <button type="button" class="btn btn-amber btn-sm" onclick="testGeneratedPassphrase()">Check This Passphrase</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="honest-notice">
+            <span>🛡️</span>
+            <div>
+              <strong>How k-Anonymity protects you:</strong> We calculate the SHA-1 digest of your password in your browser using the Native Web Cryptography API (<code style="color: var(--lime); font-family: var(--font-mono);">crypto.subtle</code>). Only the first 5 characters of the 40-character hex string are sent to the HIBP API. The API returns a list of matching hashes, and your browser matches the remaining 35 characters locally. <strong>Your full password and full hash never leave this device.</strong> Crack-time calculation assumes 10 billion guesses/second on modern GPU clusters.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 6: PHONE NUMBER CHECK -->
+    <section class="tool-section" id="phone">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 06 / Telecom Inspection</span>
+          <h2 class="section-title">Phone Number Country &amp; Format Check</h2>
+          <p class="section-desc">
+            Parse international telephone numbers, detect origin country calling codes, validate national numbering plan digit lengths, and inspect standardized formats.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="phoneForm" onsubmit="event.preventDefault(); runPhoneCheck();">
+            <div class="input-group">
+              <input type="tel" id="phoneInput" class="input-field" placeholder="Enter phone with country code (e.g. +1 555 019 2834, +44 7911 123456)" autocomplete="tel" required>
+              <button type="submit" class="btn">
+                <span>Validate Format</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="honest-notice">
+            <span>⚖️</span>
+            <div>
+              <strong>Honest Telecom Truth:</strong> Carrier and owner data live in paid databases — no free site can truthfully show them. Format and country checks are free here. Any website promising free reverse owner identification is an advertising funnel.
+            </div>
+          </div>
+
+          <div class="phone-details-card" id="phoneCard">
+            <div class="phone-detail-row">
+              <span class="phone-detail-label">Status</span>
+              <span class="phone-detail-val" id="phoneStatusVal"></span>
+            </div>
+            <div class="phone-detail-row">
+              <span class="phone-detail-label">Detected Country</span>
+              <span class="phone-detail-val" id="phoneCountryVal"></span>
+            </div>
+            <div class="phone-detail-row">
+              <span class="phone-detail-label">Calling Code</span>
+              <span class="phone-detail-val" id="phoneCodeVal"></span>
+            </div>
+            <div class="phone-detail-row">
+              <span class="phone-detail-label">International Format</span>
+              <span class="phone-detail-val" id="phoneFormattedVal" style="color: var(--lime);"></span>
+            </div>
+            <div class="phone-detail-row">
+              <span class="phone-detail-label">National Number</span>
+              <span class="phone-detail-val" id="phoneNationalVal"></span>
+            </div>
+            <div class="phone-detail-row">
+              <span class="phone-detail-label">Expected Length Range</span>
+              <span class="phone-detail-val" id="phoneRangeVal"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 7: WHAT SITES SEE ABOUT YOU -->
+    <section class="tool-section" id="browser">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 07 / Active Footprint</span>
+          <h2 class="section-title">What Sites See About You</h2>
+          <p class="section-desc">
+            Every website you visit can see this. Inspect your real-time network configuration via public IP geolocation and audit the browser fingerprint parameters passively exposed to every third-party script.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+            <button type="button" class="btn" id="networkScanBtn" onclick="runNetworkScan()">
+              <span>Fetch Network &amp; Device Identity</span>
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="populateBrowserInfoOnly()">
+              <span>Inspect Browser Metadata Only</span>
+            </button>
+          </div>
+
+          <div class="honest-notice">
+            <span>🌐</span>
+            <div>
+              <strong>Every website you visit can see this.</strong> Your public IP address, physical location estimate, Internet Service Provider, system architecture, and screen dimensions are transmitted automatically with every standard HTTP request.
+            </div>
+          </div>
+
+          <div class="info-grid" id="networkInfoGrid">
+            <div class="info-card">
+              <div class="info-card-label">Public IP Address</div>
+              <div class="info-card-val" id="ipVal">Click Fetch to Load</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">City &amp; Region</div>
+              <div class="info-card-val" id="cityVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Country</div>
+              <div class="info-card-val" id="countryVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">ISP / Organization</div>
+              <div class="info-card-val" id="ispVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Timezone</div>
+              <div class="info-card-val" id="tzVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Browser Engine &amp; OS</div>
+              <div class="info-card-val" id="browserVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Screen Resolution</div>
+              <div class="info-card-val" id="screenVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Color Depth &amp; Pixel Ratio</div>
+              <div class="info-card-val" id="pixelVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">CPU Concurrency</div>
+              <div class="info-card-val" id="cpuVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">System Language</div>
+              <div class="info-card-val" id="langVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Cookies Enabled</div>
+              <div class="info-card-val" id="cookieVal">—</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-label">Device Memory</div>
+              <div class="info-card-val" id="memVal">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 8: BROWSER FINGERPRINT DEMO -->
+    <section class="tool-section" id="fingerprint">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 08 / Advanced Tracking Audit</span>
+          <h2 class="section-title">Browser Fingerprint Demo</h2>
+          <p class="section-desc">
+            Test how trackers identify your machine across websites without cookies by calculating an offscreen HTML5 Canvas cryptographic signature.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <button type="button" class="btn" onclick="generateCanvasFingerprint()">
+            <span>Calculate Local Canvas Fingerprint</span>
+          </button>
+
+          <div class="fp-hash-box" id="fpHashBox" style="display: none;">
+            <span>Canvas Signature Hash: <strong id="canvasHashText" style="color: var(--lime);"></strong></span>
+            <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-sans);">Computed 100% locally</span>
+          </div>
+
+          <div class="honest-notice" style="margin-top: 14px;">
+            <span>🧬</span>
+            <div>
+              <strong>Sites combine signals like these to recognise your browser even without cookies. Nothing here is sent anywhere.</strong> WebGL render paths, GPU font rasterization differences, and screen metrics produce a near-unique identifier that persists across incognito sessions.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 9: EMAIL ALIAS GENERATOR -->
+    <section class="tool-section" id="alias">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Tool 09 / Inbound Filtering</span>
+          <h2 class="section-title">Email Alias Generator</h2>
+          <p class="section-desc">
+            Generate Gmail plus-tagging variants and explore dot-trick routing to pinpoint exactly which service leaked or sold your address.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <form id="aliasForm" onsubmit="event.preventDefault(); generateEmailAliases();">
+            <div class="input-group">
+              <input type="email" id="aliasGmailInput" class="input-field" placeholder="yourusername@gmail.com" required>
+              <input type="text" id="aliasPurposeInput" class="input-field" placeholder="Purpose (e.g. shopping, bank, newsletter)" required>
+              <button type="submit" class="btn">
+                <span>Generate Aliases</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="honest-notice">
+            <span>🏷️</span>
+            <div>
+              <strong>Aliases organise mail and show who sold/shared your address; they are not anonymous email.</strong> Because the root username is still visible in the address, data brokers can easily strip +tags to link identities.
+            </div>
+          </div>
+
+          <div id="aliasResultsArea" style="display: none; margin-top: 18px;">
+            <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 10px;">Generated Filtered Aliases</h3>
+            <div class="alias-results-grid" id="aliasGrid"></div>
+            <div style="margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; background: var(--panel-card); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+              <strong style="color: var(--text);">The Gmail Dot-Trick:</strong> Gmail ignores dots in your username. For example, <code style="color: var(--lime); font-family: var(--font-mono);" id="dotExampleCode">user.name@gmail.com</code> delivers to the exact same inbox. You can register on suspect forums using dotted variations to establish email rules or track leaks.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AD SLOT 1: Placed exactly after tools as ordered -->
+    <div class="container">
+      <div class="ad-slot" aria-label="Advertisement"></div>
+    </div>
+
+    <!-- DIGITAL FOOTPRINT SCORE (ORDER2.md Item 5) -->
+    <section class="tool-section" id="score">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Interactive Audit / Privacy Health</span>
+          <h2 class="section-title">Digital Footprint Score</h2>
+          <p class="section-desc">
+            Complete this 10-question self-audit to calculate your digital exposure score and receive an actionable privacy remediation plan. Your progress is saved automatically in your browser.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <div class="score-card">
+            <div class="score-display">
+              <div class="score-circle">
+                <span class="score-num" id="footprintScoreVal">--</span>
+                <span class="score-unit">/ 100</span>
+              </div>
+              <div>
+                <div class="score-band" id="footprintBandVal">Answer questions below</div>
+                <div class="score-desc" id="footprintDescVal">Complete all 10 questions to calculate your privacy posture rating.</div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetScoreAudit()">
+              ↺ Reset Answers
+            </button>
+          </div>
+
+          <!-- 10 Questions Grid -->
+          <div class="audit-grid" id="auditQuestionsContainer">
+            <!-- Injected dynamically via JavaScript -->
+          </div>
+
+          <!-- Dynamic Action List -->
+          <div class="action-plan-box" id="actionPlanBox" style="display: none;">
+            <h3>Your Priority Privacy Action Items</h3>
+            <ul class="action-list" id="actionListEl"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY SETTINGS QUICK LINKS (ORDER2.md Item 6) -->
+    <section class="tool-section" id="privacy-links">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Fast Hardening / Official Portals</span>
+          <h2 class="section-title">Privacy Settings Quick Links</h2>
+          <p class="section-desc">
+            Direct shortcuts to the official privacy and data control dashboards of major platforms, paired with what critical setting to switch off first.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <div class="privacy-grid">
+            <div class="privacy-card">
+              <div>
+                <h3>Google Account</h3>
+                <p class="privacy-tip">Turn off Web &amp; App Activity, pause YouTube History, and pause Timeline (Location History).</p>
+              </div>
+              <a href="https://myaccount.google.com/privacy" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Google Privacy Settings ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>Facebook</h3>
+                <p class="privacy-tip">Set Future Posts to "Friends", and switch off "Do you want search engines outside Facebook to link to your profile?".</p>
+              </div>
+              <a href="https://www.facebook.com/settings?tab=privacy" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Facebook Privacy Settings ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>Instagram</h3>
+                <p class="privacy-tip">Toggle "Private Account" on, and disable "Suggest your account to others" in Meta Accounts Center.</p>
+              </div>
+              <a href="https://accountscenter.instagram.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Instagram Accounts Center ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>X / Twitter</h3>
+                <p class="privacy-tip">Enable "Protect your posts", and uncheck "Let others find you by your email or phone number".</p>
+              </div>
+              <a href="https://x.com/settings/privacy_and_safety" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">X Privacy &amp; Safety ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>WhatsApp</h3>
+                <p class="privacy-tip">Set Last Seen &amp; Online to "My contacts", disable read receipts if desired, and turn on Disappearing Messages.</p>
+              </div>
+              <a href="https://faq.whatsapp.com/1142481766359885/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">WhatsApp Privacy Guide ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>Telegram</h3>
+                <p class="privacy-tip">Set Phone Number visibility to "Nobody", and restrict voice call Peer-to-Peer connections to prevent IP leaks.</p>
+              </div>
+              <a href="https://telegram.org/privacy" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Telegram Privacy FAQ ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>Apple ID / iCloud</h3>
+                <p class="privacy-tip">Enable "Sign in with Apple" Hide My Email, and turn on Advanced Data Protection for end-to-end encrypted iCloud backups.</p>
+              </div>
+              <a href="https://appleid.apple.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Apple ID Management ↗</a>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <h3>Microsoft Account</h3>
+                <p class="privacy-tip">Clear diagnostic activity logs, turn off tailored experiences, and manage search history on Bing.</p>
+              </div>
+              <a href="https://account.microsoft.com/privacy" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Microsoft Privacy Portal ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA BROKER OPT-OUT DIRECTORY & TRACKER (25 BROKERS) -->
+    <section class="tool-section" id="brokers">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Directory &amp; Progress Tracker</span>
+          <h2 class="section-title">Data-Broker Opt-Out Directory</h2>
+          <p class="section-desc">
+            Direct removal links and instructions for 25 major people-search aggregators. Removing yourself is free on every one of these — never pay a site to remove your own data. Track your progress with checkboxes saved directly on this device.
+          </p>
+        </div>
+
+        <div class="panel-box">
+          <div class="honest-notice" style="margin-top: 0; margin-bottom: 20px;">
+            <span>📢</span>
+            <div>
+              <strong>Removing yourself is free on every one of these — never pay a site to remove your own data.</strong> Commercial removal services charge recurring subscriptions to send basic emails on your behalf. You can complete the exact same opt-outs yourself in minutes for free using the links below.
+            </div>
+          </div>
+
+          <!-- Progress Tracker Bar -->
+          <div class="broker-tracker-bar">
+            <div>
+              <span style="font-size: 0.92rem; font-weight: 600; color: var(--text);">Removal Checklist Progress: </span>
+              <span id="trackerProgressCount" style="font-family: var(--font-mono); color: var(--lime); font-weight: 700;">0 of 25</span>
+              <span style="font-size: 0.82rem; color: var(--text-muted); margin-left: 6px;">brokers removed</span>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">
+              🖨️ Print Checklist
+            </button>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="trackerProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="filter-bar">
+            <span style="font-size: 0.88rem; color: var(--text-muted);">Showing 25 Major Brokers &amp; Public People Directories</span>
+            <input type="text" id="brokerSearchInput" class="filter-search" placeholder="Search broker name..." oninput="filterBrokers(this.value)">
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table" id="brokersTable">
+              <thead>
+                <tr>
+                  <th style="width: 8%; text-align: center;">Done</th>
+                  <th style="width: 20%;">Broker Name</th>
+                  <th style="width: 36%;">What They Collect &amp; Sell</th>
+                  <th style="width: 22%;">Removal Method</th>
+                  <th style="width: 14%; text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="brokersTableBody">
+                <!-- Dynamically populated from BROKERS_JSON -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AD SLOT 2: Placed exactly before guides as ordered -->
+    <div class="container">
+      <div class="ad-slot" aria-label="Advertisement"></div>
+    </div>
+
+    <!-- GUIDES SECTION (5 ORIGINAL SEO GUIDES ~150-250 WORDS EACH) -->
+    <section class="tool-section" id="guides">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Guides / Educational</span>
+          <h2 class="section-title">Digital Footprint Guides</h2>
+          <p class="section-desc">
+            Practical, plain-English tutorials to help you understand personal exposure, audit public handles, and systematically reclaim your privacy online.
+          </p>
+        </div>
+
+        <div class="guides-grid">
+          <!-- Guide 1 -->
+          <article class="guide-card">
+            <div>
+              <h3>How to Check Your Own Digital Footprint</h3>
+              <p>
+                Auditing your digital footprint is the systematic process of discovering every location where your real identity, pseudonyms, contact information, and credentials are exposed across the public web. A thorough personal audit begins by categorizing your identities into primary identifiers: your legal name, current and legacy email addresses, past telephone numbers, and recurring username handles.
+              </p>
+              <p>
+                First, use our username scanner above to locate active accounts across major developer repositories, social networks, and creative communities. When you reuse handles across multiple services, an automated crawler or adversary can easily stitch together your disparate hobbies, physical location, and career timeline into a singular dossier. Second, search your exact email address in quotation marks across search engines to uncover forgotten pastebin leaks, forum profiles, public spreadsheets, or old school newsletters. Finally, test passwords across breach repositories using privacy-preserving k-anonymity checks. Documenting every active endpoint is the indispensable first phase of reducing your exposed attack surface. Once identified, close dormant accounts and purge outdated profile metadata.
+              </p>
+            </div>
+            <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lime);">
+              Step 1: Inventory • Step 2: Dork • Step 3: Deprovision
+            </div>
+          </article>
+
+          <!-- Guide 2 -->
+          <article class="guide-card">
+            <div>
+              <h3>How to Remove Yourself from Data Brokers (Free)</h3>
+              <p>
+                Commercial data brokers build entire business models by aggregating publicly accessible government records—such as voter registrations, property deeds, marriage certificates, and business filings—and packaging them into searchable background profiles. While commercial deletion services charge anywhere from $80 to $250 annually to send automated opt-out emails on your behalf, every reputable broker is legally required to provide a direct, free opt-out mechanism.
+              </p>
+              <p>
+                To remove your records without paying a dime, start with our curated directory above. Work down the list systematically: search for your profile on each broker's site, copy your direct record URL, and paste it into their dedicated opt-out or suppression form. Most brokers simply require confirming a verification link sent to an email address or answering a one-time automated phone call. To preserve your privacy during the removal process itself, use a secondary email address rather than your primary mailbox. Revisit the highest-traffic brokers every six months, as newly updated county records can inadvertently trigger recreated listings over time. Exercising your statutory deletion rights costs nothing and gives you permanent control over your private records.
+              </p>
+            </div>
+            <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lime);">
+              100% Free • No Subscriptions • Direct Suppression
+            </div>
+          </article>
+
+          <!-- Guide 3 -->
+          <article class="guide-card">
+            <div>
+              <h3>What People-Search Sites Actually Know About You</h3>
+              <p>
+                People-search websites often present dramatic claims about the depth of their private dossiers to scare visitors into purchasing monthly subscriptions. However, understanding how their data pipelines work reveals that they do not possess secret surveillance capabilities; rather, they are bulk aggregators of public and commercial feeds.
+              </p>
+              <p>
+                Their core databases are assembled from four primary sources: government open records (real estate tax assessments, voter registries, probate filings, and criminal dockets), commercial marketing databases purchased from credit bureaus and store loyalty programs, web scrapers harvesting public bios on social media networks, and historical breach dumps circulating on hacker forums. While these brokers excel at linking past residential addresses, known family members, and estimated landline phone numbers, they do not possess live real-time location tracking or private encrypted messaging histories. By exercising your statutory opt-out rights and keeping social accounts private, you dismantle the connective tissue these aggregators rely on to reconstruct your private life.
+              </p>
+            </div>
+            <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lime);">
+              Public Records • Commercial Lists • Scraped Data
+            </div>
+          </article>
+
+          <!-- Guide 4 (ORDER2.md Item 10) -->
+          <article class="guide-card">
+            <div>
+              <h3>Freeze Your Footprint in 30 Minutes</h3>
+              <p>
+                Reclaiming control of your exposed personal data does not require weeks of complicated technical work; you can dramatically reduce your digital attack surface in an energetic 30-minute sprint. Divide your half-hour privacy audit into three focused 10-minute blocks.
+              </p>
+              <p>
+                During Minutes 0 to 10, protect your authentication backbone: verify that your primary email address is secured with multi-factor authentication (using a hardware token or authenticator app, not SMS), and test your primary passwords against our Have I Been Pwned scanner. During Minutes 10 to 20, lock down platform visibility: visit our Privacy Settings quick links for Google, Facebook, and Instagram to restrict past post visibility to friends only and turn off search engine indexing. During Minutes 20 to 30, initiate removal requests across the top three high-volume data aggregators (Whitepages, FastPeopleSearch, and Spokeo). By prioritizing your core credentials and high-traffic brokers first, you eliminate over eighty percent of casual profiling exposure in a single session.
+              </p>
+            </div>
+            <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lime);">
+              Min 0-10: Auth • Min 10-20: Social • Min 20-30: Brokers
+            </div>
+          </article>
+
+          <!-- Guide 5 (ORDER2.md Item 10) -->
+          <article class="guide-card">
+            <div>
+              <h3>Old Accounts Are Open Doors: Find and Close Them</h3>
+              <p>
+                Abandoned accounts on forgotten web services represent the single most common entry point for personal data breaches. When you register for a novelty forum, fitness app, or e-commerce shop, that company retains your password hash, email address, IP address, and security question answers indefinitely. Years later, when that forgotten service suffers a breach, your historical credentials become accessible to automated credential-stuffing bots.
+              </p>
+              <p>
+                To hunt down these neglected endpoints, begin by searching your primary email archive for universal registration keywords such as "Welcome to", "Verify your account", "Confirm registration", or "Terms of Service update". Next, input your standard handles into our 72-platform scanner above to surface abandoned profiles on legacy creative and developer networks. For each identified service, log in, delete payment details and contact numbers, and follow the account deactivation workflow. If the service lacks an automated deletion button, email their privacy officer requesting formal record erasure. Closing unused accounts eliminates silent vulnerabilities permanently.
+              </p>
+            </div>
+            <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lime);">
+              Search Welcome Mails • Audit Handles • Erase Records
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION (6 QUESTIONS MATCHING JSON-LD EXACTLY) -->
+    <section class="tool-section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Questions &amp; Answers</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">
+            Direct, transparent answers regarding our client-side architecture, legal footing, and how privacy tools operate.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Is this legal?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes, absolutely. Performing self-audits of your own digital footprint using publicly accessible web profiles and standard public APIs is completely lawful. FootPrint Check does not bypass authentication, hack private systems, or access unauthorized databases. All tools either construct direct links to public profile URLs or query standard, publicly available endpoints.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Do you store my searches?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              No. Nothing you type is sent to or stored by us. There are no backend database servers recording your queries, no user accounts, and no session tracking. Every lookup and calculation executes directly inside your browser. External requests (like Gravatar, GitHub, GitLab, HackerNews, and Have I Been Pwned) originate directly from your browser to those services.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Why can't you show who owns a phone number?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Carrier assignment and personal subscriber ownership records are stored in closed, paid telecommunication databases (CNAM and subscriber registries). No legitimate free website can truthfully provide live subscriber identities without paying commercial telecom data providers. Sites claiming to offer 'free full background and phone owner checks' are almost always affiliate funnels that lure visitors before demanding paid subscriptions. FootPrint Check provides honest, transparent parsing: international format, country origin, and structural validity without deceptive claims.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Is this like IntelBase?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              No. We do not host, sell, or mirror proprietary stolen breach archives or private personal dossiers. We build client-side privacy auditing tools that allow individuals to discover where their public handles might exist, verify whether passwords have appeared in known public breach counts via k-anonymity, and exercise their legal opt-out rights with data brokers.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How do paid sites get their data?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Paid people-search sites and data brokers compile massive cross-referenced profiles by purchasing public government records (real estate deeds, marriage licenses, voter registration rolls, court records, business filings), harvesting commercial marketing databases, and cross-matching scraped contact info from social media.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How often should I check?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              We recommend auditing your digital footprint every 3 to 6 months. Data brokers frequently recreate listings from newly acquired public records even after you have opted out. Furthermore, whenever you hear news of a major service breach, you should immediately check your passwords using our breach safety tool and update affected accounts.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST SECTIONS (ABOUT, PRIVACY, CONTACT, DISCLAIMER, TERMS) -->
+    <section class="trust-section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Identity &amp; Mission</span>
+          <h2 class="section-title">About FootPrint Check</h2>
+        </div>
+        <div class="trust-content">
+          <p>
+            <strong>FootPrint Check</strong> is a free, browser-native digital footprint auditing suite. Commercial people-search aggregators and OSINT services routinely charge steep monthly subscription fees for rudimentary public data queries. We believe every individual has the fundamental right to discover, understand, and minimize their own online exposure without surrendering payment details or registering an account.
+          </p>
+          <p>
+            Our utility is designed on zero-knowledge architecture: <strong>everything runs 100% on the visitor's local device</strong>. We operate zero centralized databases, record zero query logs, and maintain zero user registries.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" id="privacy">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Data Governance</span>
+          <h2 class="section-title">Privacy Policy</h2>
+        </div>
+        <div class="trust-content">
+          <p>
+            <strong>Zero Information Collected or Stored:</strong> Nothing the visitor types (usernames, email addresses, passwords, phone numbers) is transmitted to, processed by, or stored on our servers. FootPrint Check operates purely as a static client-side web application.
+          </p>
+          <h3>Direct Browser API Communications</h3>
+          <p>
+            When utilizing specific automated discovery tools, your local browser client establishes direct network calls to the following third-party endpoints:
+          </p>
+          <ul>
+            <li><strong>Gravatar (Automattic):</strong> Queries MD5 profile endpoints (<code style="color: var(--lime);">gravatar.com</code>) to test public avatar exposure.</li>
+            <li><strong>GitHub API:</strong> Queries public developer profile availability (<code style="color: var(--lime);">api.github.com</code>).</li>
+            <li><strong>GitLab API:</strong> Queries public username endpoints (<code style="color: var(--lime);">gitlab.com</code>).</li>
+            <li><strong>HackerNews Firebase API:</strong> Queries public user profiles (<code style="color: var(--lime);">hacker-news.firebaseio.com</code>).</li>
+            <li><strong>Bluesky Public API:</strong> Queries actor search endpoint (<code style="color: var(--lime);">public.api.bsky.app</code>).</li>
+            <li><strong>Keybase Public API:</strong> Queries user lookup endpoint (<code style="color: var(--lime);">keybase.io</code>).</li>
+            <li><strong>XposedOrNot API:</strong> Queries public email breach summaries (<code style="color: var(--lime);">api.xposedornot.com</code>).</li>
+            <li><strong>Have I Been Pwned:</strong> Queries 5-character SHA-1 hash prefixes via k-Anonymity (<code style="color: var(--lime);">api.pwnedpasswords.com</code>). Your full password never leaves your browser.</li>
+            <li><strong>ipapi.co:</strong> Queries network IP metadata when explicitly requested by the user.</li>
+          </ul>
+
+          <h3>Google AdSense &amp; Cookie Disclosure</h3>
+          <p>
+            This website uses Google AdSense to serve advertisements. Google and its advertising partners use cookies to serve ads based on prior visits to this website or other websites on the Internet.
+          </p>
+          <p>
+            You may opt out of personalized advertising by visiting <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting the <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">Network Advertising Initiative / AboutAds portal</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Direct Communication</span>
+          <h2 class="section-title">Contact</h2>
+        </div>
+        <div class="trust-content">
+          <p>
+            For inquiries, security disclosures, suggestions for additional data-broker opt-out guides, or general feedback, contact us directly via email:
+          </p>
+          <p style="margin-top: 10px;">
+            <strong style="color: var(--text);">Email:</strong>
+            <a href="mailto:purushotamkumar8757118581@gmail.com" style="font-family: var(--font-mono); font-size: 1rem; margin-left: 8px;">purushotamkumar8757118581@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" id="disclaimer">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Legal Limitations</span>
+          <h2 class="section-title">Disclaimer</h2>
+        </div>
+        <div class="trust-content">
+          <p>
+            FootPrint Check is intended solely for defensive privacy self-auditing, educational research, and legitimate personal information suppression. We do not provide private investigative services, background reports, or proprietary personal databases. We do not guarantee the completeness or accuracy of third-party public listings, and we are not affiliated with any of the third-party platforms or data brokers referenced on this site. Use this service responsibly and in accordance with all applicable laws.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" id="terms">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Usage Agreement</span>
+          <h2 class="section-title">Terms of Service</h2>
+        </div>
+        <div class="trust-content">
+          <p>
+            By accessing or using FootPrint Check, you agree to utilize the tools and directory listings strictly for lawful, non-malicious purposes. You agree not to use generated profile URLs or discovery features for stalking, harassment, or unauthorized access. This web application is provided 'as is' without warranties of any kind, either express or implied.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>FootPrint Check</strong> — Zero-Knowledge Personal Footprint Discovery</p>
+        <p style="font-size: 0.78rem; color: var(--text-faint); margin-top: 4px;">Vanilla client-side privacy toolkit. Nothing is stored.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#username">Username</a></li>
+        <li><a href="#email">Email</a></li>
+        <li><a href="#email-breach">Breaches</a></li>
+        <li><a href="#google-dorks">Google Dorks</a></li>
+        <li><a href="#password">Password</a></li>
+        <li><a href="#phone">Phone</a></li>
+        <li><a href="#browser">Device</a></li>
+        <li><a href="#score">Score</a></li>
+        <li><a href="#brokers">Brokers</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#top" style="color: var(--lime);">↑ Top</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Single-File Client-Side Functional JavaScript -->
+  <script>
+    /* =========================================================================
+       1. MD5 IMPLEMENTATION (Pure JavaScript, Zero External Dependencies)
+       ========================================================================= */
+    function computeMD5(str) {
+      function safeAdd(x, y) {
+        const lsw = (x & 0xffff) + (y & 0xffff);
+        const msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+        return (msw << 16) | (lsw & 0xffff);
+      }
+      function bitRol(num, cnt) {
+        return (num << cnt) | (num >>> (32 - cnt));
+      }
+      function cmn(q, a, b, x, s, t) {
+        return safeAdd(bitRol(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b);
+      }
+      function ff(a, b, c, d, x, s, t) {
+        return cmn((b & c) | (~b & d), a, b, x, s, t);
+      }
+      function gg(a, b, c, d, x, s, t) {
+        return cmn((b & d) | (c & ~d), a, b, x, s, t);
+      }
+      function hh(a, b, c, d, x, s, t) {
+        return cmn(b ^ c ^ d, a, b, x, s, t);
+      }
+      function ii(a, b, c, d, x, s, t) {
+        return cmn(c ^ (b | ~d), a, b, x, s, t);
+      }
+
+      const bytes = new TextEncoder().encode(str);
+      const nWords = (((bytes.length + 8) >> 6) + 1) * 16;
+      const words = new Int32Array(nWords);
+      for (let i = 0; i < bytes.length; i++) {
+        words[i >> 2] |= bytes[i] << ((i % 4) * 8);
+      }
+      words[bytes.length >> 2] |= 0x80 << ((bytes.length % 4) * 8);
+      words[nWords - 2] = (bytes.length * 8) & 0xffffffff;
+      words[nWords - 1] = Math.floor((bytes.length * 8) / 0x100000000);
+
+      let a = 1732584193, b = -271733879, c = -1732584194, d = 271733878;
+
+      for (let i = 0; i < words.length; i += 16) {
+        const olda = a, oldb = b, oldc = c, oldd = d;
+        a = ff(a, b, c, d, words[i + 0], 7, -680876936);
+        d = ff(d, a, b, c, words[i + 1], 12, -389564586);
+        c = ff(c, d, a, b, words[i + 2], 17, 606105819);
+        b = ff(b, c, d, a, words[i + 3], 22, -1044525330);
+        a = ff(a, b, c, d, words[i + 4], 7, -176418897);
+        d = ff(d, a, b, c, words[i + 5], 12, 1200080426);
+        c = ff(c, d, a, b, words[i + 6], 17, -1473231341);
+        b = ff(b, c, d, a, words[i + 7], 22, -45705983);
+        a = ff(a, b, c, d, words[i + 8], 7, 1770035416);
+        d = ff(d, a, b, c, words[i + 9], 12, -1958414417);
+        c = ff(c, d, a, b, words[i + 10], 17, -42063);
+        b = ff(b, c, d, a, words[i + 11], 22, -1990404162);
+        a = ff(a, b, c, d, words[i + 12], 7, 1804603682);
+        d = ff(d, a, b, c, words[i + 13], 12, -40341101);
+        c = ff(c, d, a, b, words[i + 14], 17, -1502002290);
+        b = ff(b, c, d, a, words[i + 15], 22, 1236535329);
+
+        a = gg(a, b, c, d, words[i + 1], 5, -165796510);
+        d = gg(d, a, b, c, words[i + 6], 9, -1069501632);
+        c = gg(c, d, a, b, words[i + 11], 14, 643717713);
+        b = gg(b, c, d, a, words[i + 0], 20, -373897302);
+        a = gg(a, b, c, d, words[i + 5], 5, -701558691);
+        d = gg(d, a, b, c, words[i + 10], 9, 38016083);
+        c = gg(c, d, a, b, words[i + 15], 14, -660478335);
+        b = gg(b, c, d, a, words[i + 4], 20, -405537848);
+        a = gg(a, b, c, d, words[i + 9], 5, 568446438);
+        d = gg(d, a, b, c, words[i + 14], 9, -1019803690);
+        c = gg(c, d, a, b, words[i + 3], 14, -187363961);
+        b = gg(b, c, d, a, words[i + 8], 20, 1163531501);
+        a = gg(a, b, c, d, words[i + 13], 5, -1444681467);
+        d = gg(d, a, b, c, words[i + 2], 9, -51403784);
+        c = gg(c, d, a, b, words[i + 7], 14, 1735328473);
+        b = gg(b, c, d, a, words[i + 12], 20, -1926607734);
+
+        a = hh(a, b, c, d, words[i + 5], 4, -378558);
+        d = hh(d, a, b, c, words[i + 8], 11, -2022574463);
+        c = hh(c, d, a, b, words[i + 11], 16, 1839030562);
+        b = hh(b, c, d, a, words[i + 14], 23, -35309556);
+        a = hh(a, b, c, d, words[i + 1], 4, -1530992060);
+        d = hh(d, a, b, c, words[i + 4], 11, 1272893353);
+        c = hh(c, d, a, b, words[i + 7], 16, -155497632);
+        b = hh(b, c, d, a, words[i + 10], 23, -1094730640);
+        a = hh(a, b, c, d, words[i + 13], 4, 681279174);
+        d = hh(d, a, b, c, words[i + 0], 11, -358537222);
+        c = hh(c, d, a, b, words[i + 3], 16, -722521979);
+        b = hh(b, c, d, a, words[i + 6], 23, 76029189);
+        a = hh(a, b, c, d, words[i + 9], 4, -640364487);
+        d = hh(d, a, b, c, words[i + 12], 11, -421815835);
+        c = hh(c, d, a, b, words[i + 15], 16, 530742520);
+        b = hh(b, c, d, a, words[i + 2], 23, -995338651);
+
+        a = ii(a, b, c, d, words[i + 0], 6, -198630844);
+        d = ii(d, a, b, c, words[i + 7], 10, 1126891415);
+        c = ii(c, d, a, b, words[i + 14], 15, -1416354905);
+        b = ii(b, c, d, a, words[i + 5], 21, -57434055);
+        a = ii(a, b, c, d, words[i + 12], 6, 1700485571);
+        d = ii(d, a, b, c, words[i + 3], 10, -1894986606);
+        c = ii(c, d, a, b, words[i + 10], 15, -1051523);
+        b = ii(b, c, d, a, words[i + 1], 21, -2054922799);
+        a = ii(a, b, c, d, words[i + 8], 6, 1873313359);
+        d = ii(d, a, b, c, words[i + 15], 10, -30611744);
+        c = ii(c, d, a, b, words[i + 6], 15, -1560198380);
+        b = ii(b, c, d, a, words[i + 13], 21, 1309151649);
+        a = ii(a, b, c, d, words[i + 4], 6, -145523070);
+        d = ii(d, a, b, c, words[i + 11], 10, -1120210379);
+        c = ii(c, d, a, b, words[i + 2], 15, 718787259);
+        b = ii(b, c, d, a, words[i + 9], 21, -343485551);
+
+        a = safeAdd(a, olda);
+        b = safeAdd(b, oldb);
+        c = safeAdd(c, oldc);
+        d = safeAdd(d, oldd);
+      }
+
+      function rhex(n) {
+        let s = '', j;
+        for (j = 0; j <= 3; j++) {
+          s += ('0' + ((n >> (j * 8)) & 255).toString(16)).slice(-2);
+        }
+        return s;
+      }
+      return rhex(a) + rhex(b) + rhex(c) + rhex(d);
+    }
+
+    /* =========================================================================
+       DATA ARRAYS (72 Platforms, 25 Brokers, 130 Passphrase Words)
+       ========================================================================= */
+    const RAW_PLATFORMS = [{"name": "GitHub", "cat": "Developer", "url": "https://github.com/{}", "check": "github"}, {"name": "GitLab", "cat": "Developer", "url": "https://gitlab.com/{}", "check": "gitlab"}, {"name": "HackerNews", "cat": "Tech Community", "url": "https://news.ycombinator.com/user?id={}", "check": "hn"}, {"name": "Bluesky", "cat": "Decentralized Social", "url": "https://bsky.app/profile/{}.bsky.social", "check": "bsky"}, {"name": "Keybase", "cat": "Cryptography & Identity", "url": "https://keybase.io/{}", "check": "keybase"}, {"name": "Instagram", "cat": "Social Media", "url": "https://www.instagram.com/{}/", "check": "manual"}, {"name": "X / Twitter", "cat": "Social Media", "url": "https://x.com/{}", "check": "manual"}, {"name": "Reddit", "cat": "Community", "url": "https://www.reddit.com/user/{}/", "check": "manual"}, {"name": "YouTube", "cat": "Video & Media", "url": "https://www.youtube.com/@{}", "check": "manual"}, {"name": "TikTok", "cat": "Video & Media", "url": "https://www.tiktok.com/@{}", "check": "manual"}, {"name": "Pinterest", "cat": "Creative & Visual", "url": "https://www.pinterest.com/{}/", "check": "manual"}, {"name": "Medium", "cat": "Blogging & Writing", "url": "https://medium.com/@{}", "check": "manual"}, {"name": "Dev.to", "cat": "Developer", "url": "https://dev.to/{}", "check": "manual"}, {"name": "Twitch", "cat": "Live Streaming", "url": "https://www.twitch.tv/{}", "check": "manual"}, {"name": "Steam", "cat": "Gaming", "url": "https://steamcommunity.com/id/{}", "check": "manual"}, {"name": "Spotify", "cat": "Music & Audio", "url": "https://open.spotify.com/user/{}", "check": "manual"}, {"name": "SoundCloud", "cat": "Music & Audio", "url": "https://soundcloud.com/{}", "check": "manual"}, {"name": "Vimeo", "cat": "Video & Media", "url": "https://vimeo.com/{}", "check": "manual"}, {"name": "Flickr", "cat": "Photography", "url": "https://www.flickr.com/people/{}/", "check": "manual"}, {"name": "Tumblr", "cat": "Microblogging", "url": "https://{}.tumblr.com/", "check": "manual"}, {"name": "Mastodon.social", "cat": "Fediverse Social", "url": "https://mastodon.social/@{}", "check": "manual"}, {"name": "Threads", "cat": "Social Media", "url": "https://www.threads.net/@{}", "check": "manual"}, {"name": "LinkedIn", "cat": "Professional Network", "url": "https://www.linkedin.com/in/{}/", "check": "manual"}, {"name": "Facebook", "cat": "Social Media", "url": "https://www.facebook.com/{}", "check": "manual"}, {"name": "Snapchat", "cat": "Social Media", "url": "https://www.snapchat.com/add/{}", "check": "manual"}, {"name": "Telegram", "cat": "Messaging Channel", "url": "https://t.me/{}", "check": "manual"}, {"name": "Discord", "cat": "Messaging / VoIP", "url": "https://discord.com", "note": "No public profile URL \u2014 search tag manually in Discord client", "check": "manual"}, {"name": "Quora", "cat": "Q&A Community", "url": "https://www.quora.com/profile/{}", "check": "manual"}, {"name": "ProductHunt", "cat": "Tech Products", "url": "https://www.producthunt.com/@{}", "check": "manual"}, {"name": "Kaggle", "cat": "Data Science & AI", "url": "https://www.kaggle.com/{}", "check": "manual"}, {"name": "Stack Overflow", "cat": "Developer Q&A", "url": "https://stackoverflow.com/users?tab=Users&filter={}", "note": "Searches users by display name", "check": "manual"}, {"name": "CodePen", "cat": "Web Development", "url": "https://codepen.io/{}", "check": "manual"}, {"name": "Replit", "cat": "Online Coding", "url": "https://replit.com/@{}", "check": "manual"}, {"name": "Patreon", "cat": "Creator Support", "url": "https://www.patreon.com/{}", "check": "manual"}, {"name": "Substack", "cat": "Newsletters", "url": "https://{}.substack.com/", "check": "manual"}, {"name": "Behance", "cat": "Design Portfolio", "url": "https://www.behance.net/{}", "check": "manual"}, {"name": "Dribbble", "cat": "Design & Art", "url": "https://dribbble.com/{}", "check": "manual"}, {"name": "Goodreads", "cat": "Book Cataloging", "url": "https://www.goodreads.com/{}", "check": "manual"}, {"name": "Letterboxd", "cat": "Film Social", "url": "https://letterboxd.com/{}/", "check": "manual"}, {"name": "Chess.com", "cat": "Chess & Gaming", "url": "https://www.chess.com/member/{}", "check": "manual"}, {"name": "Lichess", "cat": "Chess & Gaming", "url": "https://lichess.org/@/{}", "check": "manual"}, {"name": "About.me", "cat": "Personal Splash Page", "url": "https://about.me/{}", "check": "manual"}, {"name": "Xbox Gamertag", "cat": "Gaming Console", "url": "https://www.xboxgamertag.com/search/{}", "check": "manual"}, {"name": "PlayStation Network", "cat": "Gaming Console", "url": "https://psnprofiles.com/{}", "check": "manual"}, {"name": "Nintendo Switch", "cat": "Gaming Console", "url": "https://www.nintendo.com/", "note": "Manual search via Nintendo Network Friend Code / Account", "check": "manual"}, {"name": "Battle.net", "cat": "Gaming Network", "url": "https://battle.net", "note": "Manual search BattleTag in Battle.net launcher", "check": "manual"}, {"name": "Epic Games", "cat": "Gaming Store", "url": "https://store.epicgames.com", "note": "Manual search display name in Epic Games Launcher", "check": "manual"}, {"name": "Roblox", "cat": "Gaming Metaverse", "url": "https://www.roblox.com/search/users?keyword={}", "check": "manual"}, {"name": "Minecraft (NameMC)", "cat": "Gaming Profile", "url": "https://namemc.com/profile/{}", "check": "manual"}, {"name": "Duolingo", "cat": "Education & Languages", "url": "https://www.duolingo.com/profile/{}", "check": "manual"}, {"name": "Strava", "cat": "Fitness & Cycling", "url": "https://www.strava.com/athletes/{}", "check": "manual"}, {"name": "Fitbit", "cat": "Fitness Tracking", "url": "https://www.fitbit.com/", "note": "Manual search user handle in Fitbit mobile application", "check": "manual"}, {"name": "WordPress.com", "cat": "Blogging Platform", "url": "https://{}.wordpress.com", "check": "manual"}, {"name": "Blogger", "cat": "Blogging Platform", "url": "https://{}.blogspot.com", "check": "manual"}, {"name": "Joomla", "cat": "CMS Community", "url": "https://community.joomla.org/", "note": "Manual search user handle in Joomla community", "check": "manual"}, {"name": "Shopify Store", "cat": "E-Commerce", "url": "https://{}.myshopify.com", "note": "Manual check for branded merchant storefront", "check": "manual"}, {"name": "Linktree", "cat": "Bio Link Hub", "url": "https://linktr.ee/{}", "check": "manual"}, {"name": "Ko-fi", "cat": "Creator Support", "url": "https://ko-fi.com/{}", "check": "manual"}, {"name": "BuyMeACoffee", "cat": "Creator Support", "url": "https://www.buymeacoffee.com/{}", "check": "manual"}, {"name": "Gumroad", "cat": "Digital Marketplace", "url": "https://{}.gumroad.com", "check": "manual"}, {"name": "Etsy", "cat": "Handmade Marketplace", "url": "https://www.etsy.com/people/{}", "check": "manual"}, {"name": "eBay", "cat": "Online Marketplace", "url": "https://www.ebay.com/usr/{}", "check": "manual"}, {"name": "Airbnb", "cat": "Travel & Lodging", "url": "https://www.airbnb.com/", "note": "Manual search user name in Airbnb community", "check": "manual"}, {"name": "TripAdvisor", "cat": "Travel Reviews", "url": "https://www.tripadvisor.com/Profile/{}", "check": "manual"}, {"name": "Yelp", "cat": "Local Reviews", "url": "https://www.yelp.com/user_details?userid={}", "note": "Manual search display name on Yelp", "check": "manual"}, {"name": "Foursquare", "cat": "Location Discovery", "url": "https://foursquare.com/", "note": "Manual search user handle on Foursquare", "check": "manual"}, {"name": "VKontakte (VK)", "cat": "Social Network", "url": "https://vk.com/{}", "check": "manual"}, {"name": "Odnoklassniki (OK.ru)", "cat": "Social Network", "url": "https://ok.ru/{}", "note": "Manual profile page check", "check": "manual"}, {"name": "Sina Weibo", "cat": "Microblogging", "url": "https://weibo.com/n/{}", "note": "Manual handle lookup on Sina Weibo", "check": "manual"}, {"name": "GitHub Gist", "cat": "Code Snippets", "url": "https://gist.github.com/{}", "check": "manual"}, {"name": "SourceForge", "cat": "Open Source", "url": "https://sourceforge.net/u/{}/profile/", "check": "manual"}, {"name": "Bitbucket", "cat": "Git Hosting", "url": "https://bitbucket.org/{}/", "check": "manual"}];
+    const RAW_BROKERS = [{"id": "whitepages", "name": "Whitepages", "cat": "Contact & Public Records", "data": "Landline and mobile phone records, previous physical addresses, age, relatives, and background reports.", "method": "Online suppression form + automated phone verification code. (1-2 days)", "url": "https://www.whitepages.com/suppression-requests"}, {"id": "spokeo", "name": "Spokeo", "cat": "People Search & Social", "data": "Aggregates public records, social media handles, email associations, photos, and historical family trees.", "method": "Online opt-out form with profile URL paste + email confirmation link. (2-3 days)", "url": "https://www.spokeo.com/optout"}, {"id": "beenverified", "name": "BeenVerified", "cat": "Background Aggregator", "data": "Court records, property deeds, phone numbers, vehicle registrations, and professional licensing records.", "method": "Search profile on opt-out portal, select your listing, and confirm verification email. (24-48 hrs)", "url": "https://www.beenverified.com/app/optout/search"}, {"id": "peoplefinders", "name": "PeopleFinders", "cat": "Public Records Database", "data": "Historical address registries, landline numbers, known associates, court judgements, and property assets.", "method": "Direct online suppression form; find profile and click Remove. (24-48 hrs)", "url": "https://www.peoplefinders.com/opt-out"}, {"id": "radaris", "name": "Radaris", "cat": "People & Property Dossiers", "data": "Scraped social accounts, business reviews, real estate ownership history, addresses, and relatives.", "method": "Submit profile removal ticket directly via privacy control center. (24-48 hrs)", "url": "https://radaris.com/control/privacy"}, {"id": "fastpeoplesearch", "name": "FastPeopleSearch", "cat": "Instant People Search", "data": "Direct free reverse lookup database indexing home addresses, phone numbers, and family relations.", "method": "Online removal agreement, search profile, and click 'Remove My Record'. (Instant - 24 hrs)", "url": "https://www.fastpeoplesearch.com/removal"}, {"id": "thatsthem", "name": "ThatsThem", "cat": "Free Reverse Directory", "data": "IP addresses, emails, phone numbers, residential addresses, and approximate household income estimates.", "method": "Web-based opt-out request submission form. (24-48 hrs)", "url": "https://thatsthem.com/opt-out"}, {"id": "nuwber", "name": "Nuwber", "cat": "People & Census Directory", "data": "Census data correlation, phone numbers, neighborhood residents, and family tree connections.", "method": "Direct profile removal link generator and email verification. (24-48 hrs)", "url": "https://nuwber.com/removal/link"}, {"id": "mylife", "name": "MyLife", "cat": "Reputation & Background", "data": "Generates controversial 'reputation scores', arrest logs, lawsuit filings, and personal contact info.", "method": "Online CCPA / privacy submission or phone/email opt-out request. (5-10 business days)", "url": "https://www.mylife.com/ccpa/index.pubview"}, {"id": "intelius", "name": "Intelius", "cat": "Background Check Suite", "data": "Extensive criminal histories, liens, marriage certificates, current addresses, and civil court filings.", "method": "Search and suppression request via the PeopleConnect privacy center. (48-72 hrs)", "url": "https://www.intelius.com/opt-out/"}, {"id": "truthfinder", "name": "TruthFinder", "cat": "Background & Asset Reports", "data": "Deep court records, bankruptcies, traffic infractions, asset registries, and social profiles.", "method": "Unified PeopleConnect opt-out portal suppression. (48-72 hrs)", "url": "https://www.truthfinder.com/opt-out/"}, {"id": "usphonebook", "name": "USPhonebook", "cat": "Telephony Directory", "data": "Reverse telephone number directory connecting cell numbers with residential street addresses.", "method": "Direct phone number opt-out form with SMS or captcha verification. (24-72 hrs)", "url": "https://www.usphonebook.com/opt-out"}, {"id": "lexisnexis", "name": "LexisNexis", "cat": "Enterprise Data Broker", "data": "Massive consumer reporting database holding insurance, risk, credit, and government agency records.", "method": "Formal consumer opt-out portal (requires identity verification under applicable laws). (7-14 days)", "url": "https://optout.lexisnexis.com/"}, {"id": "cyberbackgroundchecks", "name": "CyberBackgroundChecks", "cat": "Public Records Portal", "data": "Free instant background checks indexing historical neighbors, phone numbers, and relatives.", "method": "Online opt-out portal with email verification challenge. (24-48 hrs)", "url": "https://www.cyberbackgroundchecks.com/removal"}, {"id": "checkpeople", "name": "CheckPeople", "cat": "People Search Directory", "data": "Aggregated public records, addresses, civil judgments, and social media footprints.", "method": "Search listing in privacy center and submit removal request. (48 hrs)", "url": "https://checkpeople.com/opt-out"}, {"id": "peoplelooker", "name": "PeopleLooker", "cat": "Background Aggregator", "data": "Court files, social handles, relatives, past residential addresses, and contact records.", "method": "Online opt-out portal via BeenVerified parent suppression center. (24-48 hrs)", "url": "https://www.peoplelooker.com/optout"}, {"id": "socialcatfish", "name": "Social Catfish", "cat": "Identity Verification", "data": "Online dating profiles, avatar photos, emails, telephone numbers, and social handles.", "method": "Dedicated opt-out form with listing URL submission and email verification. (2-3 business days)", "url": "https://socialcatfish.com/opt-out/"}, {"id": "cocofinder", "name": "CocoFinder", "cat": "Public Directory", "data": "Reverse address lookups, relatives, phone directories, and court summaries.", "method": "Web removal request form; lookup record and click Remove. (24-48 hrs)", "url": "https://cocofinder.com/remove-my-info"}, {"id": "searchpeoplefree", "name": "SearchPeopleFree", "cat": "Free Directory", "data": "Unrestricted public lookup of mobile numbers, home addresses, and family relations.", "method": "Direct online opt-out removal agreement + record deletion. (Instant - 24 hrs)", "url": "https://www.searchpeoplefree.com/opt-out"}, {"id": "familytreenow", "name": "FamilyTreeNow", "cat": "Genealogy & People", "data": "Deep historical family association maps, maiden names, address timelines, and living relatives.", "method": "Direct profile opt-out button on active record. (24-48 hrs)", "url": "https://www.familytreenow.com/optout"}, {"id": "peekyou", "name": "PeekYou", "cat": "Social Web Scraper", "data": "Indexed usernames, blog signatures, social accounts, and public interests.", "method": "Online removal request form with unique record identifier. (48-72 hrs)", "url": "https://www.peekyou.com/about/contact/optout/"}, {"id": "idcrawl", "name": "IDcrawl", "cat": "Social & Contact Search", "data": "Scraped public web mentions, social networks, and forum usernames.", "method": "Web opt-out portal with email verification challenge. (24-48 hrs)", "url": "https://www.idcrawl.com/opt-out"}, {"id": "zabasearch", "name": "ZabaSearch", "cat": "Legacy People Search", "data": "Historical white pages listings, addresses, and listed landline numbers.", "method": "Block records web portal request. (2-3 business days)", "url": "https://www.zabasearch.com/block_records/"}, {"id": "anywho", "name": "AnyWho", "cat": "Yellow & White Pages", "data": "Commercial business and residential telephone listings across the US.", "method": "Online directory removal request via privacy portal. (24-48 hrs)", "url": "https://www.anywho.com/help/privacy"}, {"id": "addresses", "name": "Addresses.com", "cat": "Directory & Contact", "data": "Whitepages-powered public residential addresses, neighbors, and phone records.", "method": "Online suppression request via Whitepages privacy workflow. (1-2 days)", "url": "https://www.addresses.com/opt-out"}];
+    const WORD_LIST = ["amber", "anchor", "arrow", "badge", "beacon", "breeze", "bridge", "cabin", "canyon", "cedar", "cipher", "cliff", "clover", "cobalt", "copper", "crater", "creek", "crypto", "crystal", "dagger", "dawn", "echo", "ember", "falcon", "fathom", "feather", "flame", "flicker", "flint", "forest", "fossil", "frost", "galaxy", "glacier", "granite", "grove", "harbor", "haven", "hawk", "hazard", "horizon", "island", "jaguar", "jungle", "kernel", "lagoon", "lantern", "latch", "legend", "lotus", "lynx", "matrix", "meadow", "meteor", "mirage", "monarch", "moon", "mosaic", "nebula", "nomad", "oasis", "obsidian", "ocean", "orbit", "parade", "pebble", "phantom", "pillar", "pinnacle", "planet", "plover", "prism", "pyramid", "quartz", "radar", "radius", "ravine", "relic", "ridge", "ripple", "river", "robot", "rocket", "rubble", "saddle", "safari", "sapphire", "shadow", "shield", "signal", "silver", "siren", "solar", "spark", "spider", "spiral", "spruce", "statue", "stone", "summit", "sunset", "surge", "tactic", "talon", "temple", "tempo", "thistle", "thunder", "timber", "titan", "topaz", "torque", "totem", "tower", "trail", "trigger", "trophy", "tunnel", "turnip", "twilight", "typhoon", "valley", "vapor", "vector", "velvet", "venture", "vertex", "vessel", "vigor", "viper", "volcano", "voyage", "walrus", "warden", "whisper", "willow", "wizard", "zenith", "zephyr", "zigzag", "zipper", "zodiac"];
+
+    /* =========================================================================
+       2. TOOL 1 — USERNAME FOOTPRINT SCANNER
+       ========================================================================= */
+    let currentUsernameResults = [];
+
+    async function runUsernameScan() {
+      const input = document.getElementById('usernameInput');
+      const u = input.value.trim();
+      if (!u) return;
+
+      const btn = document.getElementById('usernameBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Scanning 72 Platforms...</span>';
+
+      document.getElementById('usernameStatsBar').style.display = 'flex';
+      document.getElementById('usernameFilterBar').style.display = 'flex';
+      document.getElementById('usernameTableWrap').style.display = 'block';
+
+      currentUsernameResults = RAW_PLATFORMS.map((p, idx) => {
+        let fullUrl = p.url.replace('{}', encodeURIComponent(u));
+        return {
+          id: idx,
+          name: p.name,
+          cat: p.cat,
+          url: fullUrl,
+          note: p.note || null,
+          checkType: p.check,
+          status: (p.check === 'manual') ? 'manual' : 'loading'
+        };
+      });
+
+      renderUsernameRows(currentUsernameResults);
+      updateUsernameStats();
+
+      // Real automatic existence checks via free CORS-open APIs
+      const apiChecks = [];
+
+      // 1. GitHub API Check
+      const ghItem = currentUsernameResults.find(r => r.checkType === 'github');
+      if (ghItem) {
+        apiChecks.push(
+          fetch(`https://api.github.com/users/${encodeURIComponent(u)}`)
+            .then(res => {
+              if (res.status === 200) ghItem.status = 'found';
+              else if (res.status === 404) ghItem.status = 'not_found';
+              else if (res.status === 403) ghItem.status = 'rate_limited';
+              else ghItem.status = 'manual';
+            })
+            .catch(() => { ghItem.status = 'manual'; })
+            .finally(() => {
+              updateUsernameRowStatus(ghItem);
+              updateUsernameStats();
+            })
+        );
+      }
+
+      // 2. GitLab API Check
+      const glItem = currentUsernameResults.find(r => r.checkType === 'gitlab');
+      if (glItem) {
+        apiChecks.push(
+          fetch(`https://gitlab.com/api/v4/users?username=${encodeURIComponent(u)}`)
+            .then(res => res.json())
+            .then(data => {
+              if (Array.isArray(data) && data.length > 0) glItem.status = 'found';
+              else glItem.status = 'not_found';
+            })
+            .catch(() => { glItem.status = 'manual'; })
+            .finally(() => {
+              updateUsernameRowStatus(glItem);
+              updateUsernameStats();
+            })
+        );
+      }
+
+      // 3. HackerNews API Check
+      const hnItem = currentUsernameResults.find(r => r.checkType === 'hn');
+      if (hnItem) {
+        apiChecks.push(
+          fetch(`https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(u)}.json`)
+            .then(res => res.json())
+            .then(data => {
+              if (data && data.id) hnItem.status = 'found';
+              else hnItem.status = 'not_found';
+            })
+            .catch(() => { hnItem.status = 'manual'; })
+            .finally(() => {
+              updateUsernameRowStatus(hnItem);
+              updateUsernameStats();
+            })
+        );
+      }
+
+      // 4. Bluesky API Check
+      const bskyItem = currentUsernameResults.find(r => r.checkType === 'bsky');
+      if (bskyItem) {
+        apiChecks.push(
+          fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.searchActors?q=${encodeURIComponent(u)}`)
+            .then(res => res.json())
+            .then(data => {
+              const actors = (data && data.actors) || [];
+              const uLower = u.toLowerCase();
+              const matched = actors.some(a => {
+                const handle = (a.handle || '').toLowerCase();
+                return handle === `${uLower}.bsky.social` || handle.startsWith(`${uLower}.`);
+              });
+              bskyItem.status = matched ? 'found' : 'not_found';
+            })
+            .catch(() => { bskyItem.status = 'manual'; })
+            .finally(() => {
+              updateUsernameRowStatus(bskyItem);
+              updateUsernameStats();
+            })
+        );
+      }
+
+      // 5. Keybase API Check
+      const kbItem = currentUsernameResults.find(r => r.checkType === 'keybase');
+      if (kbItem) {
+        apiChecks.push(
+          fetch(`https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(u)}&fields=basics`)
+            .then(res => res.json())
+            .then(data => {
+              const them = (data && data.them) || [];
+              if (Array.isArray(them) && them.length > 0 && them[0] !== null) {
+                kbItem.status = 'found';
+              } else {
+                kbItem.status = 'not_found';
+              }
+            })
+            .catch(() => { kbItem.status = 'manual'; })
+            .finally(() => {
+              updateUsernameRowStatus(kbItem);
+              updateUsernameStats();
+            })
+        );
+      }
+
+      await Promise.allSettled(apiChecks);
+      btn.disabled = false;
+      btn.innerHTML = '<span>Scan 72 Platforms</span>';
+    }
+
+    function renderUsernameRows(items) {
+      const tbody = document.getElementById('usernameTableBody');
+      tbody.innerHTML = '';
+
+      items.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.id = `row-platform-${item.id}`;
+        tr.dataset.status = item.status;
+        tr.dataset.name = item.name.toLowerCase();
+
+        let statusChipHtml = getStatusChipHtml(item.status);
+        let actionHtml = `<a href="${item.url}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Open ↗</a>`;
+
+        let urlDisplay = item.url;
+        if (item.note) {
+          urlDisplay += ` <div style="font-size: 0.72rem; color: var(--amber); margin-top: 2px;">⚠️ ${item.note}</div>`;
+        }
+
+        tr.innerHTML = `
+          <td>
+            <div class="platform-name">${item.name}</div>
+            <span class="platform-category">${item.cat}</span>
+          </td>
+          <td class="profile-url-cell">${urlDisplay}</td>
+          <td id="status-cell-${item.id}">${statusChipHtml}</td>
+          <td style="text-align: right;">${actionHtml}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function getStatusChipHtml(status) {
+      if (status === 'found') {
+        return `<span class="status-chip status-found">✓ Found</span>`;
+      } else if (status === 'not_found') {
+        return `<span class="status-chip status-not-found">✕ Not found</span>`;
+      } else if (status === 'rate_limited') {
+        return `<span class="status-chip status-manual">⚠ Rate Limited</span>`;
+      } else if (status === 'loading') {
+        return `<span class="status-chip status-loading">⏳ Checking API...</span>`;
+      } else {
+        return `<span class="status-chip status-manual">Check manually</span>`;
+      }
+    }
+
+    function updateUsernameRowStatus(item) {
+      const cell = document.getElementById(`status-cell-${item.id}`);
+      if (cell) cell.innerHTML = getStatusChipHtml(item.status);
+      const row = document.getElementById(`row-platform-${item.id}`);
+      if (row) row.dataset.status = item.status;
+    }
+
+    function updateUsernameStats() {
+      const total = currentUsernameResults.length;
+      const found = currentUsernameResults.filter(r => r.status === 'found').length;
+      const notFound = currentUsernameResults.filter(r => r.status === 'not_found').length;
+      const manual = currentUsernameResults.filter(r => r.status === 'manual' || r.status === 'rate_limited').length;
+
+      document.getElementById('statTotal').innerText = total;
+      document.getElementById('statFound').innerText = found;
+      document.getElementById('statNotFound').innerText = notFound;
+      document.getElementById('statManual').innerText = manual;
+    }
+
+    function filterUsernameTable(type, btn) {
+      document.querySelectorAll('.filter-tabs .filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+
+      const rows = document.querySelectorAll('#usernameTableBody tr');
+      rows.forEach(row => {
+        const st = row.dataset.status;
+        if (type === 'all') {
+          row.style.display = '';
+        } else if (type === 'found') {
+          row.style.display = (st === 'found') ? '' : 'none';
+        } else if (type === 'manual') {
+          row.style.display = (st === 'manual' || st === 'rate_limited') ? '' : 'none';
+        }
+      });
+    }
+
+    function searchUsernameTable(query) {
+      const q = query.trim().toLowerCase();
+      const rows = document.querySelectorAll('#usernameTableBody tr');
+      rows.forEach(row => {
+        const name = row.dataset.name || '';
+        row.style.display = name.includes(q) ? '' : 'none';
+      });
+    }
+
+    /* =========================================================================
+       3. TOOL 2 — EMAIL FOOTPRINT & GRAVATAR
+       ========================================================================= */
+    async function runEmailScan() {
+      const input = document.getElementById('emailInput');
+      const email = input.value.trim().toLowerCase();
+      if (!email) return;
+
+      const btn = document.getElementById('emailBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Checking...</span>';
+
+      const resultsBox = document.getElementById('emailResults');
+      resultsBox.style.display = 'block';
+
+      const md5Hash = computeMD5(email);
+      document.getElementById('gravatarHashText').innerText = `MD5: ${md5Hash}`;
+
+      const statusBadge = document.getElementById('gravatarStatusBadge');
+      statusBadge.className = 'status-chip status-loading';
+      statusBadge.innerText = 'Querying Gravatar...';
+
+      const nameEl = document.getElementById('gravatarName');
+      const descEl = document.getElementById('gravatarDesc');
+      const avatarEl = document.getElementById('gravatarImg');
+      const linkWrap = document.getElementById('gravatarLinkWrap');
+      linkWrap.innerHTML = '';
+
+      const quotedEmail = `"${email}"`;
+      document.getElementById('dorkGoogle').href = `https://www.google.com/search?q=${encodeURIComponent(quotedEmail)}`;
+      document.getElementById('dorkBing').href = `https://www.bing.com/search?q=${encodeURIComponent(quotedEmail)}`;
+      document.getElementById('dorkDdg').href = `https://duckduckgo.com/?q=${encodeURIComponent(quotedEmail)}`;
+
+      try {
+        const res = await fetch(`https://www.gravatar.com/${md5Hash}.json`);
+        if (res.status === 200) {
+          const data = await res.json();
+          const entry = data && data.entry && data.entry[0];
+          if (entry) {
+            statusBadge.className = 'status-chip status-found';
+            statusBadge.innerText = 'Public Gravatar profile exists';
+            nameEl.innerText = entry.displayName || entry.preferredUsername || 'Gravatar User';
+            descEl.innerText = entry.aboutMe || `Public profile detected for username ${entry.preferredUsername || ''}.`;
+            avatarEl.src = `https://www.gravatar.com/avatar/${md5Hash}?s=144&d=mp`;
+            if (entry.profileUrl) {
+              linkWrap.innerHTML = `<a href="${entry.profileUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">View Gravatar Profile ↗</a>`;
+            }
+          } else {
+            setGravatarNotFound(avatarEl, statusBadge, nameEl, descEl);
+          }
+        } else {
+          setGravatarNotFound(avatarEl, statusBadge, nameEl, descEl);
+        }
+      } catch (err) {
+        setGravatarNotFound(avatarEl, statusBadge, nameEl, descEl);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Check Email Footprint</span>';
+      }
+    }
+
+    function setGravatarNotFound(avatarEl, statusBadge, nameEl, descEl) {
+      statusBadge.className = 'status-chip status-not-found';
+      statusBadge.innerText = 'No public Gravatar profile';
+      nameEl.innerText = 'No Public Profile Found';
+      descEl.innerText = 'This email address does not have an active public Gravatar account or avatar indexed.';
+      avatarEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' fill='%23636657'%3E%3Crect width='100%25' height='100%25' fill='%23181d13'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' fill='%239fa293' font-size='24' font-family='sans-serif'%3E✕%3C/text%3E%3C/svg%3E";
+    }
+
+    /* =========================================================================
+       4. TOOL 3 — EMAIL BREACH CHECK (XposedOrNot + Fallback)
+       ========================================================================= */
+    async function runEmailBreachCheck() {
+      const input = document.getElementById('breachEmailInput');
+      const email = input.value.trim().toLowerCase();
+      if (!email) return;
+
+      const btn = document.getElementById('breachEmailBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Querying XposedOrNot...</span>';
+
+      const resultsArea = document.getElementById('emailBreachResults');
+      const alertBox = document.getElementById('breachStatusAlert');
+      const listContainer = document.getElementById('breachListContainer');
+      const fallbackPanel = document.getElementById('breachFallbackPanel');
+
+      resultsArea.style.display = 'block';
+      alertBox.style.display = 'none';
+      listContainer.innerHTML = '';
+      fallbackPanel.style.display = 'none';
+
+      try {
+        const res = await fetch(`https://api.xposedornot.com/v1/check-email/${encodeURIComponent(email)}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+
+        // XposedOrNot returns { "breaches": [ [ "Breach1", "Breach2", ... ] ] } when breached
+        if (data && data.breaches && Array.isArray(data.breaches) && data.breaches.length > 0) {
+          const breachNames = Array.isArray(data.breaches[0]) ? data.breaches[0] : data.breaches;
+          const count = breachNames.length;
+
+          alertBox.className = 'pwned-alert danger';
+          alertBox.style.display = 'block';
+          alertBox.innerHTML = `
+            <strong>⚠️ Breach Exposure Detected:</strong> This email was found in <strong>${count} known public data breaches</strong>.
+            <div style="margin-top: 6px; font-size: 0.88rem; color: var(--text-muted);">
+              <strong>Immediate Security Recommendation:</strong> Change your passwords immediately on the affected services listed below, and enable Two-Factor Authentication (2FA) wherever possible.
+            </div>
+          `;
+
+          let htmlBadges = '<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">';
+          breachNames.forEach(b => {
+            htmlBadges += `<span class="status-chip status-error">⚠️ ${b}</span>`;
+          });
+          htmlBadges += '</div>';
+          listContainer.innerHTML = htmlBadges;
+        } else {
+          alertBox.className = 'pwned-alert safe';
+          alertBox.style.display = 'block';
+          alertBox.innerHTML = `
+            <strong>✓ Clean Status:</strong> No known breaches were found for this email address in the XposedOrNot database.
+            <div style="font-size: 0.8rem; margin-top: 4px; color: var(--text-muted);">Continue practicing strong password hygiene and using unique passwords per service.</div>
+          `;
+        }
+      } catch (err) {
+        // Fallback panel as instructed by ORDER2.md
+        alertBox.className = 'pwned-alert';
+        alertBox.style.display = 'block';
+        alertBox.innerHTML = `<strong>Direct API Unreachable:</strong> Network or CORS restriction prevented live automated lookup. Use the free official portals below.`;
+        fallbackPanel.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Check Breach History</span>';
+      }
+    }
+
+    /* =========================================================================
+       5. TOOL 4 — FIND YOURSELF ON GOOGLE & BING (DORKS)
+       ========================================================================= */
+    function generateGoogleDorks() {
+      const name = document.getElementById('dorkName').value.trim();
+      const city = document.getElementById('dorkCity').value.trim();
+      const phone = document.getElementById('dorkPhone').value.trim();
+      const email = document.getElementById('dorkEmail').value.trim();
+
+      if (!name) return;
+
+      const container = document.getElementById('dorkCardsContainer');
+      container.innerHTML = '';
+
+      const dorks = [
+        { label: "Exact Name Search", q: `"${name}"` },
+        { label: "Name + Location", q: city ? `"${name}" "${city}"` : `"${name}" "address"` },
+        { label: "Exposed PDF Documents", q: `"${name}" filetype:pdf` },
+        { label: "Facebook Indexing", q: `site:facebook.com "${name}"` },
+        { label: "Data Broker Mentions", q: `"${name}" "data broker"` }
+      ];
+
+      if (phone) {
+        dorks.push({ label: "Exact Phone Number", q: `"${phone}"` });
+      }
+      if (email) {
+        dorks.push({ label: "Exact Email Address", q: `"${email}"` });
+      }
+
+      dorks.forEach(d => {
+        const card = document.createElement('div');
+        card.className = 'dork-card';
+        card.innerHTML = `
+          <div>
+            <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; font-family: var(--font-mono);">${d.label}</div>
+            <div class="dork-query">${d.q}</div>
+          </div>
+          <div class="dork-btn-group">
+            <a href="https://www.google.com/search?q=${encodeURIComponent(d.q)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="flex: 1;">Google ↗</a>
+            <a href="https://www.bing.com/search?q=${encodeURIComponent(d.q)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="flex: 1;">Bing ↗</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById('dorksOutput').style.display = 'block';
+    }
+
+    /* =========================================================================
+       6. TOOL 5 — PASSWORD SAFETY (HIBP, ENTROPY & PASSPHRASE GENERATOR)
+       ========================================================================= */
+    function togglePasswordVisibility() {
+      const input = document.getElementById('pwInput');
+      const btn = document.getElementById('pwToggleBtn');
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerText = 'HIDE';
+      } else {
+        input.type = 'password';
+        btn.innerText = 'SHOW';
+      }
+    }
+
+    function calculateCrackTime(seconds) {
+      if (seconds < 1) return "Instant (under 1 second)";
+      if (seconds < 60) return `${Math.round(seconds)} seconds`;
+      if (seconds < 3600) return `${Math.round(seconds / 60)} minutes`;
+      if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
+      if (seconds < 31536000) return `${Math.round(seconds / 86400)} days`;
+      if (seconds < 31536000 * 100) return `${Math.round(seconds / 31536000)} years`;
+      if (seconds < 31536000 * 1000000) return `${Math.round(seconds / (31536000 * 1000))} thousand years`;
+      return "Centuries / Billions of years";
+    }
+
+    function updatePasswordStrength(val) {
+      const meter = document.getElementById('pwMeterFill');
+      const label = document.getElementById('pwStrengthLabel');
+      const entropyLabel = document.getElementById('pwEntropyLabel');
+      const crackLabel = document.getElementById('pwCrackTimeLabel');
+
+      if (!val) {
+        meter.style.width = '0%';
+        meter.style.backgroundColor = 'var(--rust)';
+        label.innerText = 'Not tested';
+        entropyLabel.innerText = '0 bits entropy';
+        crackLabel.innerText = '—';
+        return;
+      }
+
+      let pool = 0;
+      if (/[a-z]/.test(val)) pool += 26;
+      if (/[A-Z]/.test(val)) pool += 26;
+      if (/[0-9]/.test(val)) pool += 10;
+      if (/[^a-zA-Z0-9]/.test(val)) pool += 32;
+
+      const entropy = Math.round(val.length * (pool > 0 ? Math.log2(pool) : 0));
+      entropyLabel.innerText = `${entropy} bits entropy`;
+
+      // Crack time: pool^length / 10 billion guesses/sec
+      const combinations = Math.pow(pool || 1, val.length);
+      const crackSeconds = combinations / 10000000000;
+      crackLabel.innerText = calculateCrackTime(crackSeconds);
+
+      let score = 0;
+      if (val.length >= 8) score += 20;
+      if (val.length >= 12) score += 20;
+      if (val.length >= 16) score += 10;
+      if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score += 20;
+      if (/[0-9]/.test(val)) score += 15;
+      if (/[^a-zA-Z0-9]/.test(val)) score += 15;
+
+      meter.style.width = `${Math.min(100, score)}%`;
+
+      if (score < 40) {
+        meter.style.backgroundColor = 'var(--rust)';
+        label.innerText = 'Weak';
+        label.style.color = 'var(--rust)';
+      } else if (score < 75) {
+        meter.style.backgroundColor = 'var(--amber)';
+        label.innerText = 'Moderate';
+        label.style.color = 'var(--amber)';
+      } else {
+        meter.style.backgroundColor = 'var(--lime)';
+        label.innerText = 'Strong';
+        label.style.color = 'var(--lime)';
+      }
+    }
+
+    async function runPasswordCheck() {
+      const input = document.getElementById('pwInput');
+      const password = input.value;
+      if (!password) return;
+
+      const btn = document.getElementById('pwCheckBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Verifying via k-Anonymity...</span>';
+
+      const alertBox = document.getElementById('pwnedAlertBox');
+      alertBox.className = 'pwned-alert';
+      alertBox.style.display = 'none';
+
+      try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+
+        const prefix = hashHex.substring(0, 5);
+        const suffix = hashHex.substring(5);
+
+        const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`);
+        if (!res.ok) throw new Error(`HIBP status: ${res.status}`);
+
+        const text = await res.text();
+        const lines = text.split('\n');
+
+        let matchCount = 0;
+        for (const line of lines) {
+          const [hashPart, countPart] = line.trim().split(':');
+          if (hashPart === suffix) {
+            matchCount = parseInt(countPart, 10);
+            break;
+          }
+        }
+
+        if (matchCount > 0) {
+          alertBox.className = 'pwned-alert danger';
+          alertBox.innerHTML = `
+            <strong>⚠️ Compromised Password Detected:</strong> This password appeared in known data breaches <strong>${matchCount.toLocaleString()} times</strong> — do not use it anywhere.
+            <div style="font-size: 0.8rem; margin-top: 6px; color: var(--text-muted); font-family: var(--font-mono);">SHA-1 Prefix: ${prefix} • Matched locally via k-Anonymity</div>
+          `;
+        } else {
+          alertBox.className = 'pwned-alert safe';
+          alertBox.innerHTML = `
+            <strong>✓ Not found in known breach lists.</strong> This password was not found in public database breaches monitored by Have I Been Pwned.
+            <div style="font-size: 0.8rem; margin-top: 6px; color: var(--text-muted); font-family: var(--font-mono);">SHA-1 Prefix: ${prefix} • 0 matches found in range</div>
+          `;
+        }
+      } catch (err) {
+        alertBox.className = 'pwned-alert';
+        alertBox.style.display = 'block';
+        alertBox.innerHTML = `<strong>Notice:</strong> Unable to connect to Have I Been Pwned API (${err.message}).`;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Check Known Breaches</span>';
+      }
+    }
+
+    function generateNewPassphrase() {
+      const symbols = ["!", "@", "#", "$", "%", "&", "*", "?"];
+      const words = [];
+      for (let i = 0; i < 4; i++) {
+        const randIdx = Math.floor(Math.random() * WORD_LIST.length);
+        words.push(WORD_LIST[randIdx]);
+      }
+      const digit = Math.floor(Math.random() * 10);
+      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      const phrase = `${words.join('-')}-${digit}${symbol}`;
+
+      document.getElementById('generatedPassphraseText').innerText = phrase;
+      document.getElementById('copyPassphraseBtn').innerText = 'Copy';
+    }
+
+    function copyPassphrase() {
+      const text = document.getElementById('generatedPassphraseText').innerText;
+      if (!text || text.includes('click generate')) return;
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById('copyPassphraseBtn').innerText = 'Copied!';
+        setTimeout(() => { document.getElementById('copyPassphraseBtn').innerText = 'Copy'; }, 2000);
+      });
+    }
+
+    function testGeneratedPassphrase() {
+      const text = document.getElementById('generatedPassphraseText').innerText;
+      if (!text || text.includes('click generate')) {
+        generateNewPassphrase();
+      }
+      const current = document.getElementById('generatedPassphraseText').innerText;
+      const pwInput = document.getElementById('pwInput');
+      pwInput.value = current;
+      pwInput.type = 'text';
+      document.getElementById('pwToggleBtn').innerText = 'HIDE';
+      updatePasswordStrength(current);
+      runPasswordCheck();
+    }
+
+    /* =========================================================================
+       7. TOOL 6 — PHONE NUMBER CHECK
+       ========================================================================= */
+    const COUNTRY_CODES = [
+      { code: "1", name: "United States & Canada", min: 10, max: 10, fmt: (n) => `+1 (${n.slice(0,3)}) ${n.slice(3,6)}-${n.slice(6)}` },
+      { code: "44", name: "United Kingdom", min: 10, max: 10, fmt: (n) => `+44 ${n.slice(0,4)} ${n.slice(4)}` },
+      { code: "91", name: "India", min: 10, max: 10, fmt: (n) => `+91 ${n.slice(0,5)} ${n.slice(5)}` },
+      { code: "61", name: "Australia", min: 9, max: 9, fmt: (n) => `+61 ${n.slice(0,1)} ${n.slice(1,5)} ${n.slice(5)}` },
+      { code: "49", name: "Germany", min: 10, max: 11, fmt: (n) => `+49 ${n.slice(0,3)} ${n.slice(3)}` },
+      { code: "33", name: "France", min: 9, max: 9, fmt: (n) => `+33 ${n.slice(0,1)} ${n.slice(1,3)} ${n.slice(3,5)} ${n.slice(5,7)} ${n.slice(7)}` },
+      { code: "81", name: "Japan", min: 10, max: 10, fmt: (n) => `+81 ${n.slice(0,2)} ${n.slice(2,6)} ${n.slice(6)}` },
+      { code: "55", name: "Brazil", min: 10, max: 11, fmt: (n) => `+55 ${n.slice(0,2)} ${n.slice(2,7)}-${n.slice(7)}` },
+      { code: "52", name: "Mexico", min: 10, max: 10, fmt: (n) => `+52 ${n.slice(0,2)} ${n.slice(2,6)} ${n.slice(6)}` },
+      { code: "34", name: "Spain", min: 9, max: 9, fmt: (n) => `+34 ${n.slice(0,3)} ${n.slice(3,5)} ${n.slice(5,7)} ${n.slice(7)}` },
+      { code: "39", name: "Italy", min: 9, max: 10, fmt: (n) => `+39 ${n.slice(0,3)} ${n.slice(3)}` },
+      { code: "31", name: "Netherlands", min: 9, max: 9, fmt: (n) => `+31 ${n.slice(0,1)} ${n.slice(1)}` },
+      { code: "41", name: "Switzerland", min: 9, max: 9, fmt: (n) => `+41 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5,7)} ${n.slice(7)}` },
+      { code: "46", name: "Sweden", min: 9, max: 9, fmt: (n) => `+46 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}` },
+      { code: "47", name: "Norway", min: 8, max: 8, fmt: (n) => `+47 ${n.slice(0,3)} ${n.slice(3,5)} ${n.slice(5)}` },
+      { code: "45", name: "Denmark", min: 8, max: 8, fmt: (n) => `+45 ${n.slice(0,2)} ${n.slice(2,4)} ${n.slice(4,6)} ${n.slice(6)}` },
+      { code: "65", name: "Singapore", min: 8, max: 8, fmt: (n) => `+65 ${n.slice(0,4)} ${n.slice(4)}` },
+      { code: "82", name: "South Korea", min: 9, max: 10, fmt: (n) => `+82 ${n.slice(0,2)} ${n.slice(2,6)} ${n.slice(6)}` },
+      { code: "86", name: "China", min: 11, max: 11, fmt: (n) => `+86 ${n.slice(0,3)} ${n.slice(3,7)} ${n.slice(7)}` },
+      { code: "27", name: "South Africa", min: 9, max: 9, fmt: (n) => `+27 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}` },
+      { code: "234", name: "Nigeria", min: 10, max: 10, fmt: (n) => `+234 ${n.slice(0,3)} ${n.slice(3,6)} ${n.slice(6)}` },
+      { code: "92", name: "Pakistan", min: 10, max: 10, fmt: (n) => `+92 ${n.slice(0,3)} ${n.slice(3)}` },
+      { code: "880", name: "Bangladesh", min: 10, max: 10, fmt: (n) => `+880 ${n.slice(0,4)}-${n.slice(4)}` },
+      { code: "7", name: "Russia & Kazakhstan", min: 10, max: 10, fmt: (n) => `+7 (${n.slice(0,3)}) ${n.slice(3,6)}-${n.slice(6,8)}-${n.slice(8)}` },
+      { code: "62", name: "Indonesia", min: 9, max: 12, fmt: (n) => `+62 ${n.slice(0,3)}-${n.slice(3,7)}-${n.slice(7)}` },
+      { code: "90", name: "Turkey", min: 10, max: 10, fmt: (n) => `+90 ${n.slice(0,3)} ${n.slice(3,6)} ${n.slice(6)}` },
+      { code: "966", name: "Saudi Arabia", min: 9, max: 9, fmt: (n) => `+966 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}` },
+      { code: "971", name: "United Arab Emirates", min: 9, max: 9, fmt: (n) => `+971 ${n.slice(0,1)} ${n.slice(1,4)} ${n.slice(4)}` },
+      { code: "63", name: "Philippines", min: 10, max: 10, fmt: (n) => `+63 ${n.slice(0,3)} ${n.slice(3,6)} ${n.slice(6)}` },
+      { code: "64", name: "New Zealand", min: 8, max: 10, fmt: (n) => `+64 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}` },
+      { code: "353", name: "Ireland", min: 9, max: 9, fmt: (n) => `+353 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}` },
+      { code: "48", name: "Poland", min: 9, max: 9, fmt: (n) => `+48 ${n.slice(0,3)} ${n.slice(3,6)} ${n.slice(6)}` }
+    ].sort((a, b) => b.code.length - a.code.length);
+
+    function runPhoneCheck() {
+      const input = document.getElementById('phoneInput');
+      let raw = input.value.trim();
+      if (!raw) return;
+
+      const digits = raw.replace(/\D/g, '');
+
+      const card = document.getElementById('phoneCard');
+      card.style.display = 'block';
+
+      const statusEl = document.getElementById('phoneStatusVal');
+      const countryEl = document.getElementById('phoneCountryVal');
+      const codeEl = document.getElementById('phoneCodeVal');
+      const formattedEl = document.getElementById('phoneFormattedVal');
+      const nationalEl = document.getElementById('phoneNationalVal');
+      const rangeEl = document.getElementById('phoneRangeVal');
+
+      let matchedCountry = null;
+      let nationalDigits = '';
+
+      for (const country of COUNTRY_CODES) {
+        if (digits.startsWith(country.code)) {
+          matchedCountry = country;
+          nationalDigits = digits.substring(country.code.length);
+          break;
+        }
+      }
+
+      if (!matchedCountry) {
+        statusEl.innerHTML = `<span class="status-chip status-error">Unknown Country Calling Code</span>`;
+        countryEl.innerText = "Unknown / Unrecognized prefix";
+        codeEl.innerText = "—";
+        formattedEl.innerText = `+${digits}`;
+        nationalEl.innerText = digits;
+        rangeEl.innerText = "N/A";
+        return;
+      }
+
+      const len = nationalDigits.length;
+      countryEl.innerText = matchedCountry.name;
+      codeEl.innerText = `+${matchedCountry.code}`;
+      rangeEl.innerText = `${matchedCountry.min} - ${matchedCountry.max} digits (received ${len})`;
+      nationalEl.innerText = nationalDigits || "None entered";
+
+      if (len < matchedCountry.min) {
+        statusEl.innerHTML = `<span class="status-chip status-manual">Too Short (expected ${matchedCountry.min}-${matchedCountry.max} digits, got ${len})</span>`;
+        formattedEl.innerText = `+${matchedCountry.code} ${nationalDigits}`;
+      } else if (len > matchedCountry.max) {
+        statusEl.innerHTML = `<span class="status-chip status-manual">Too Long (expected ${matchedCountry.min}-${matchedCountry.max} digits, got ${len})</span>`;
+        formattedEl.innerText = `+${matchedCountry.code} ${nationalDigits}`;
+      } else {
+        statusEl.innerHTML = `<span class="status-chip status-found">✓ Valid International Format</span>`;
+        formattedEl.innerText = matchedCountry.fmt(nationalDigits);
+      }
+    }
+
+    /* =========================================================================
+       8. TOOL 7 — WHAT SITES SEE ABOUT YOU
+       ========================================================================= */
+    function populateBrowserInfoOnly() {
+      document.getElementById('browserVal').innerText = navigator.userAgent ? navigator.userAgent.split(' ')[0] + ' (' + navigator.platform + ')' : navigator.platform;
+      document.getElementById('screenVal').innerText = `${window.screen.width} x ${window.screen.height} (Viewport: ${window.innerWidth} x ${window.innerHeight})`;
+      document.getElementById('pixelVal').innerText = `${window.screen.colorDepth}-bit (DPR: ${window.devicePixelRatio || 1})`;
+      document.getElementById('cpuVal').innerText = `${navigator.hardwareConcurrency || 'Unknown'} Logical Cores`;
+      document.getElementById('langVal').innerText = navigator.language || navigator.userLanguage || 'Unknown';
+      document.getElementById('cookieVal').innerText = navigator.cookieEnabled ? 'Enabled (Active)' : 'Disabled';
+      document.getElementById('memVal').innerText = navigator.deviceMemory ? `~${navigator.deviceMemory} GB RAM` : 'Not exposed by browser';
+    }
+
+    async function runNetworkScan() {
+      const btn = document.getElementById('networkScanBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Scanning Connection...</span>';
+
+      populateBrowserInfoOnly();
+
+      const ipEl = document.getElementById('ipVal');
+      const cityEl = document.getElementById('cityVal');
+      const countryEl = document.getElementById('countryVal');
+      const ispEl = document.getElementById('ispVal');
+      const tzEl = document.getElementById('tzVal');
+
+      ipEl.innerText = 'Querying ipapi.co...';
+
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        if (!res.ok) throw new Error('API limit or network block');
+        const data = await res.json();
+
+        ipEl.innerText = data.ip || 'Unavailable';
+        cityEl.innerText = `${data.city || 'Unknown City'}, ${data.region || ''}`;
+        countryEl.innerText = `${data.country_name || 'Unknown'} (${data.country_code || ''})`;
+        ispEl.innerText = `${data.org || data.asn || 'Unknown ISP'}`;
+        tzEl.innerText = data.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+      } catch (err) {
+        ipEl.innerHTML = '<span style="color: var(--amber); font-size: 0.85rem;">Blocked by adblocker / rate limit</span>';
+        cityEl.innerText = 'Inspection blocked';
+        countryEl.innerText = 'Inspection blocked';
+        ispEl.innerText = 'Inspection blocked';
+        tzEl.innerText = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local Browser Timezone';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Fetch Network &amp; Device Identity</span>';
+      }
+    }
+
+    populateBrowserInfoOnly();
+
+    /* =========================================================================
+       9. TOOL 8 — BROWSER FINGERPRINT DEMO (CANVAS HASH)
+       ========================================================================= */
+    function generateCanvasFingerprint() {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 200;
+        canvas.height = 50;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error("Canvas context not available");
+
+        ctx.textBaseline = "top";
+        ctx.font = "14px 'Arial'";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = "#f60";
+        ctx.fillRect(125, 1, 62, 20);
+        ctx.fillStyle = "#069";
+        ctx.fillText("FootPrintCheck,🔒123", 2, 15);
+        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+        ctx.fillText("FootPrintCheck,🔒123", 4, 17);
+
+        const dataUrl = canvas.toDataURL();
+        let hash = 0;
+        for (let i = 0; i < dataUrl.length; i++) {
+          const char = dataUrl.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash |= 0;
+        }
+
+        const hexHash = "FP-CANVAS-" + Math.abs(hash).toString(16).toUpperCase();
+        document.getElementById('canvasHashText').innerText = hexHash;
+        document.getElementById('fpHashBox').style.display = 'flex';
+      } catch (e) {
+        document.getElementById('canvasHashText').innerText = "FP-CANVAS-UNAVAILABLE";
+        document.getElementById('fpHashBox').style.display = 'flex';
+      }
+    }
+
+    /* =========================================================================
+       10. TOOL 9 — EMAIL ALIAS GENERATOR
+       ========================================================================= */
+    function generateEmailAliases() {
+      const email = document.getElementById('aliasGmailInput').value.trim();
+      const purpose = document.getElementById('aliasPurposeInput').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+
+      if (!email || !email.includes('@')) return;
+
+      const [user, domain] = email.split('@');
+      const cleanUser = user.split('+')[0];
+
+      const area = document.getElementById('aliasResultsArea');
+      const grid = document.getElementById('aliasGrid');
+      grid.innerHTML = '';
+
+      const aliases = [
+        { label: `Direct Purpose Tag`, val: `${cleanUser}+${purpose || 'tag'}@${domain}` },
+        { label: `Date Tagged`, val: `${cleanUser}+${purpose || 'sub'}-${new Date().toISOString().slice(0,10)}@${domain}` },
+        { label: `Security Alert Tag`, val: `${cleanUser}+alert@${domain}` },
+        { label: `Newsletter Tag`, val: `${cleanUser}+news@${domain}` }
+      ];
+
+      aliases.forEach(a => {
+        const card = document.createElement('div');
+        card.className = 'alias-card';
+        card.innerHTML = `
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-faint); margin-bottom: 2px;">${a.label}</div>
+            <div class="alias-text">${a.val}</div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText('${a.val}'); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 1500);">Copy</button>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Dot trick example
+      let dotUser = cleanUser.split('').join('.');
+      document.getElementById('dotExampleCode').innerText = `${dotUser}@${domain}`;
+
+      area.style.display = 'block';
+    }
+
+    /* =========================================================================
+       11. DIGITAL FOOTPRINT SCORE (10 QUESTIONS SELF-AUDIT)
+       ========================================================================= */
+    const AUDIT_QUESTIONS = [
+      { id: "q1", text: "Are any of your social media profiles publicly viewable without logging in?", weight: 12, action: "Set your Facebook, Instagram, and personal accounts to 'Private' or 'Friends Only'." },
+      { id: "q2", text: "Is your personal phone number visible on any public resume, portfolio, or profile?", weight: 12, action: "Remove personal phone numbers from public resumes and replace with VoIP numbers." },
+      { id: "q3", text: "Do you reuse the same password or variations across multiple websites?", weight: 15, action: "Stop reusing passwords. Adopt a password manager to generate distinct credentials." },
+      { id: "q4", text: "Is Two-Factor Authentication (2FA) DISABLED on your primary email address?", weight: 15, action: "Turn on 2FA (Authenticator App) on your primary email immediately — this is your master recovery key." },
+      { id: "q5", text: "Have you never checked or opted out of people-search data broker directories?", weight: 10, action: "Work down the 25 data brokers listed below to submit free opt-out removal requests." },
+      { id: "q6", text: "Do you have old, unused online accounts that you haven't accessed in over 2 years?", weight: 10, action: "Locate old registrations in your email archive and permanently delete dormant accounts." },
+      { id: "q7", text: "Is your friends, following, or connections list publicly visible to anyone?", weight: 8, action: "Hide your friends list in privacy settings to prevent adversary correlation mapping." },
+      { id: "q8", text: "Do your photos or status updates include embedded GPS location tagging?", weight: 8, action: "Disable camera location access on mobile devices and strip EXIF data before uploading photos." },
+      { id: "q9", text: "Do you use the exact same username handle across every social and developer site?", weight: 5, action: "Use distinct handles across gaming, social, and professional accounts to thwart cross-site tracking." },
+      { id: "q10", text: "Do you browse the web without an adblocker or script blocker installed?", weight: 5, action: "Install a reputable content blocker to prevent cross-site tracker and canvas fingerprinting." }
+    ];
+
+    let auditAnswers = {};
+
+    function initAuditQuestions() {
+      const container = document.getElementById('auditQuestionsContainer');
+      container.innerHTML = '';
+
+      const saved = localStorage.getItem('fp_audit_answers');
+      if (saved) {
+        try { auditAnswers = JSON.parse(saved); } catch(e) { auditAnswers = {}; }
+      }
+
+      AUDIT_QUESTIONS.forEach(q => {
+        const val = auditAnswers[q.id];
+        const row = document.createElement('div');
+        row.className = 'audit-row';
+        row.innerHTML = `
+          <div class="audit-q">${q.text}</div>
+          <div class="audit-toggles">
+            <button type="button" class="toggle-opt ${val === 'yes' ? 'selected-yes' : ''}" onclick="setAuditAnswer('${q.id}', 'yes')">YES</button>
+            <button type="button" class="toggle-opt ${val === 'no' ? 'selected-no' : ''}" onclick="setAuditAnswer('${q.id}', 'no')">NO</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      calculateScore();
+    }
+
+    function setAuditAnswer(qId, answer) {
+      auditAnswers[qId] = answer;
+      localStorage.setItem('fp_audit_answers', JSON.stringify(auditAnswers));
+      initAuditQuestions();
+    }
+
+    function resetScoreAudit() {
+      auditAnswers = {};
+      localStorage.removeItem('fp_audit_answers');
+      initAuditQuestions();
+    }
+
+    function calculateScore() {
+      let answeredCount = 0;
+      let exposureScore = 0;
+      const actions = [];
+
+      AUDIT_QUESTIONS.forEach(q => {
+        const ans = auditAnswers[q.id];
+        if (ans) {
+          answeredCount++;
+          if (ans === 'yes') {
+            exposureScore += q.weight;
+            actions.push(q.action);
+          }
+        }
+      });
+
+      if (answeredCount === 0) {
+        document.getElementById('footprintScoreVal').innerText = '--';
+        document.getElementById('footprintBandVal').innerText = 'Answer questions below';
+        document.getElementById('footprintDescVal').innerText = 'Complete all 10 questions to calculate your privacy posture rating.';
+        document.getElementById('actionPlanBox').style.display = 'none';
+        return;
+      }
+
+      // Safety Score = 100 - exposureScore
+      const safetyScore = Math.max(0, 100 - exposureScore);
+      document.getElementById('footprintScoreVal').innerText = safetyScore;
+
+      const bandEl = document.getElementById('footprintBandVal');
+      const descEl = document.getElementById('footprintDescVal');
+
+      if (safetyScore >= 75) {
+        bandEl.innerText = "Well Protected";
+        bandEl.style.color = "var(--lime)";
+        descEl.innerText = "Strong privacy posture. Your exposure surface is minimal.";
+      } else if (safetyScore >= 45) {
+        bandEl.innerText = "Moderate Exposure";
+        bandEl.style.color = "var(--amber)";
+        descEl.innerText = "Some identifiable vectors exposed. Review the recommended actions below.";
+      } else {
+        bandEl.innerText = "High Exposure";
+        bandEl.style.color = "var(--rust)";
+        descEl.innerText = "Significant tracking and breach exposure detected. Take immediate remedial action.";
+      }
+
+      const planBox = document.getElementById('actionPlanBox');
+      const listEl = document.getElementById('actionListEl');
+      if (actions.length > 0) {
+        listEl.innerHTML = actions.map(a => `<li class="action-item">${a}</li>`).join('');
+        planBox.style.display = 'block';
+      } else {
+        listEl.innerHTML = `<li class="action-item">Outstanding work! You have mitigated all 10 common exposure vulnerabilities.</li>`;
+        planBox.style.display = 'block';
+      }
+    }
+
+    /* =========================================================================
+       12. BROKER DIRECTORY & PROGRESS TRACKER
+       ========================================================================= */
+    let removedBrokers = {};
+
+    function initBrokers() {
+      const saved = localStorage.getItem('fp_removed_brokers');
+      if (saved) {
+        try { removedBrokers = JSON.parse(saved); } catch(e) { removedBrokers = {}; }
+      }
+
+      const tbody = document.getElementById('brokersTableBody');
+      tbody.innerHTML = '';
+
+      RAW_BROKERS.forEach(b => {
+        const isChecked = !!removedBrokers[b.id];
+        const tr = document.createElement('tr');
+        tr.id = `broker-row-${b.id}`;
+        tr.innerHTML = `
+          <td style="text-align: center;">
+            <input type="checkbox" id="check-${b.id}" style="width: 18px; height: 18px; cursor: pointer;" ${isChecked ? 'checked' : ''} onchange="toggleBrokerRemoved('${b.id}', this.checked)">
+          </td>
+          <td>
+            <strong>${b.name}</strong>
+            <span class="platform-category">${b.cat}</span>
+          </td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">${b.data}</td>
+          <td style="font-size: 0.82rem; color: var(--text-muted);">${b.method}</td>
+          <td style="text-align: right;">
+            <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Opt out ↗</a>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updateBrokerTracker();
+    }
+
+    function toggleBrokerRemoved(brokerId, isChecked) {
+      if (isChecked) {
+        removedBrokers[brokerId] = true;
+      } else {
+        delete removedBrokers[brokerId];
+      }
+      localStorage.setItem('fp_removed_brokers', JSON.stringify(removedBrokers));
+      updateBrokerTracker();
+    }
+
+    function updateBrokerTracker() {
+      const total = RAW_BROKERS.length;
+      const count = Object.keys(removedBrokers).length;
+      document.getElementById('trackerProgressCount').innerText = `${count} of ${total}`;
+      const pct = Math.round((count / total) * 100);
+      document.getElementById('trackerProgressBar').style.width = `${pct}%`;
+    }
+
+    function filterBrokers(query) {
+      const q = query.trim().toLowerCase();
+      const rows = document.querySelectorAll('#brokersTableBody tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    /* =========================================================================
+       13. FAQ & NAVIGATION HELPERS
+       ========================================================================= */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      item.classList.toggle('open');
+    }
+
+    const mobileBtn = document.getElementById('mobileMenuToggle');
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', () => {
+        document.body.classList.toggle('mobile-nav-active');
+      });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.body.classList.remove('mobile-nav-active');
+      });
+    });
+
+    // Run on startup
+    window.addEventListener('DOMContentLoaded', () => {
+      initAuditQuestions();
+      initBrokers();
+      generateNewPassphrase();
+    });
+  </script>
+</body>
+</html>
